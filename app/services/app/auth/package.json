@@ -1,0 +1,23 @@
+{
+  "name": "@pawpal-service/auth",
+  "version": "1.0.0",
+  "description": "Service for authorization and authentication of pawpal users",
+  "main": "index.js",
+  "author": "Tega Adigu",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.2.0",
+    "@fastify/swagger-ui": "^5.1.0",
+    "express": "^4.21.1",
+    "fastify": "^5.1.0",
+    "fastify-openapi-glue": "^4.7.1",
+    "fastify-swagger": "^5.2.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
