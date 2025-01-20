@@ -1,0 +1,32 @@
+{
+  "name": "@pawpal-service/shared",
+  "version": "1.0.0",
+  "description": "Pawapl utilities for backend services",
+  "main": "src/index.js",
+  "author": "Tega Adigu",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "migrate": "npx knex migrate:latest"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^5.1.0",
+    "openapi-types": "^7.2.3",
+    "@fastify/rate-limit": "^10.1.1",
+    "@fastify/swagger": "^9.2.0",
+    "@fastify/swagger-ui": "^5.1.0",
+    "envalid": "^8.0.0",
+    "express": "^4.21.1",
+    "fastify-openapi-glue": "^4.7.1",
+    "fastify-plugin": "^5.0.1",
+    "knex": "^3.1.0",
+    "swagger-jsdoc": "^6.2.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

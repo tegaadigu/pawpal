@@ -1,0 +1,14 @@
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123456"
+        email:
+          type: string
+          example: "john.doe@email.com"
+        phoneNumber:
+          type: string
+          example: 123445343433232

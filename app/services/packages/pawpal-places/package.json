@@ -1,0 +1,35 @@
+{
+  "name": "@pawpal-service/places",
+  "version": "1.0.0",
+  "description": "Service for authorization and authentication of pawpal users",
+  "main": "index.js",
+  "author": "Tega Adigu",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "nodemon --env-file=.env src/index.js",
+    "docker:start": "pnpm install && nodemon --env-file=.env src/index.js",
+    "migrate": "npx knex migrate:latest"
+  },
+  "dependencies": {
+    "@pawpal-service/shared": "workspace:*",
+    "@fastify/rate-limit": "^10.1.1",
+    "@fastify/swagger": "^9.4.1",
+    "@fastify/swagger-ui": "^5.1.0",
+    "ajv": "^8.17.1",
+    "dotenv": "^16.4.5",
+    "envalid": "^8.0.0",
+    "express": "^4.21.1",
+    "fastify": "^5.1.0",
+    "fastify-openapi-glue": "^4.7.1",
+    "fastify-plugin": "^5.0.1",
+    "knex": "^3.1.0",
+    "pg": "^8.13.1",
+    "swagger-jsdoc": "^6.2.8",
+    "openapi-types": "^7.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}

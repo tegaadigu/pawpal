@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: packages/pawpal-places/Dockerfile
+    volumes:
+      - ../../packages/pawpal-places/./:/usr/src/app/packages/pawpal-places
+      - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
+    ports:
+      - "${SERVICE_PORT:-3000}:3000"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    command: pnpm --filter ./packages/pawpal-places docker:start
+
+  db:
+    image: postgres:latest
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      

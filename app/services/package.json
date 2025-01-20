@@ -1,0 +1,14 @@
+{
+  "name": "pawpal-backend-services",
+  "version": "1.0.0",
+  "description": "Backend service for Pawpal",
+  "main": "index.js",
+  "author": "Tega Adigu",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

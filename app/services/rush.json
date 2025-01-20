@@ -305,6 +305,24 @@
    * 3. It's useful to have a centralized inventory of all projects and their important metadata.
    */
   "projects": [
+    {
+      "packageName": "@pawpal-service/places",
+      "projectFolder": "packages/pawpal-places",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@pawpal-service/shared",
+      "projectFolder": "packages/pawpal-shared",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@pawpal-service/auth",
+      "projectFolder": "packages/pawpal-auth",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
+    }
     // {
     //   /**
     //    * The NPM package name of the project (must match package.json)
