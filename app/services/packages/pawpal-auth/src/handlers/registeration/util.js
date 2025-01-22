@@ -1,61 +1,75 @@
-import { logError } from "../../utils/logger.js";
 import { createHandlerUtil } from "@pawpal-service/shared";
+import UserDao from "../../dao/users.dao.js";
+
+const REGISTRATION_TYPE = {
+  EMAIL:'email',
+  PHONE:'phone'
+}
+
 const utils = async (request) => {
-  const { dbClient } = await createHandlerUtil(request); 
+  const { dbClient } = await createHandlerUtil(request);
   const { body } = request;
-
-  const isPhoneNumberOnly = () => {
-    return (body?.phoneNumber && !body?.email)
-  }
-
-  const isEmailAndPassword = (params) => {
-    return true;
-  }
-
-  const getUserWithPhoneNumber = async (phoneNumber) => {
-    const query = {
-      text: "Select phone_number from public.users where phone_number = $1",
-      values: [phoneNumber]
-    }
-    const resp = await dbClient.query(query);
-    return resp?.rows || [];
-  }
-
-  const generateRandomPassword = async () => {
-
-  };
-
-  const saveUser = async (params) => {
-    const { phoneNumber } = body;
-
-  }
+  const userDao = new UserDao(dbClient);
 
   const registerUserWithPhoneNumber = async () => {
-    try{
-    const existingUser = getUserWithPhoneNumber(body?.phoneNumber);
-    if(!existingUser.length) {
-      const password = await generateRandomPassword();
-      const user = await saveUser();
+    const existingUser = await userDao.getUserByPhoneNumber(body?.phoneNumber);
+    if (!existingUser.length) {
+      const user = await userDao.saveUser({
+        phone_number: body?.phoneNumber
+      });
       return user;
     }
-    return null;
-  }catch(e) {
-    logError(request, e)
-  }
+    throw new Error('Phone number already registered! try logging in with it.')
   }
 
-  const registerEmailAndPassword = async (params) => {
-    return {
-      name: "Tega"
+  const registerEmailAndPassword = async () => {
+    const existingUser = await userDao.getUerByEmail(body?.email);
+    if (!existingUser.length) {
+      const user = await userDao.saveUser({
+        email: body?.email,
+        phone_number: body?.phoneNumber,
+        password: body?.password
+      });
+      return user;
     }
+    throw new Error('Email address has already been registered!')
+  }
+
+  const validateRegistrationType = () => {
+    if (!body) {
+      throw new Error("Error body not found in request..")
+    }
+
+    if(body?.phoneNumber && !body?.email) {
+      return REGISTRATION_TYPE.PHONE
+    }
+
+    if(body?.email && body?.password) {
+      return REGISTRATION_TYPE.EMAIL
+    }
+
+    throw new Error("Invalid registration data.")
+  }
+
+  const handleRegistrationByType = async (type) => {
+    switch(type) {
+      case REGISTRATION_TYPE.PHONE:
+        return await registerUserWithPhoneNumber();
+      case REGISTRATION_TYPE.EMAIL:
+        return await registerEmailAndPassword();
+      default: 
+        throw new Error('Unsupported registration.')
+    }
+  }
+
+  const handleRegisterUser = async () => {
+    const registrationType = validateRegistrationType()
+    const user = await handleRegistrationByType(registrationType);
+    return user;
   }
 
   return {
-    isPhoneNumberOnly,
-    isEmailAndPassword,
-    getUserWithPhoneNumber,
-    registerEmailAndPassword,
-    registerUserWithPhoneNumber
+    handleRegisterUser
   }
 }
 

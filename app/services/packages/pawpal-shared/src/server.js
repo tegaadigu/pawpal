@@ -8,6 +8,7 @@ import rateLimit from '@fastify/rate-limit';
 import { cleanEnv, str, num } from 'envalid';
 import { readdirSync } from 'fs';
 import { readFile } from 'fs/promises';
+import db from "./db.js";
 
 // Read Environment Variables
 const env = cleanEnv(process.env, {
@@ -102,7 +103,6 @@ const registerShutdownHooks = () => {
 };
 
 const configureDB = async () => {
-  const db = await import(path.join(path.resolve('./database/', 'db.js')));
   app.register(db, {
     host: env.DB_HOST,
     port: env.DB_PORT,

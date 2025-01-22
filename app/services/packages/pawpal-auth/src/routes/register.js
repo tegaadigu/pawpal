@@ -7,7 +7,6 @@ export const registerUser = async (request, reply) => {
     return reply.status(200).send({ message: "Success", ...response})
   }catch(e) {
     logError(request, e);
-    return reply.status(500).send({ message: "Error!"})
+    return reply.status(500).send({ message: e.message })
   }
-
 }

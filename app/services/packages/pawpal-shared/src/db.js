@@ -13,7 +13,6 @@ const db = async (fastify, options) => {
     password
   } = options;
 
-  console.log('db options --->', { options })
   const { Pool } = pg;
   const pool = new Pool({
     host,

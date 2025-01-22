@@ -1,8 +1,29 @@
 paths:
-  /login:
-    get:
-      summary: Greet the world
-      description: Returns a greeting message.
+  /api/v1/login:
+    post:
+      summary: Login to retrieve jwt token or sms code using phone number
+      description: Returns a jwt token or sms code for phone number login
+      operationId: login
+      tags:
+        - Users
+      requestBody:
+        description: The user / service account object that needs to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phoneNumber:
+                  type: string
+                  pattern: '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+                  description: The user's phone number
+                email:
+                  type: string
+                  description: the user's email address
+                password: 
+                  type: string
+                  description: the user's password for creating
       responses:
         '200':
           description: A greeting message.

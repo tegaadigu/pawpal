@@ -1,5 +1,5 @@
 paths:
-  /register:
+  /api/v1/register:
     post:
       summary: Creates a new user / service authentication
       description: Registers a new user / service account that can be used for authenticating into the pawpal eco-system
