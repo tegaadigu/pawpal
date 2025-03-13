@@ -1,0 +1,161 @@
+paths:
+  /api/v1/store/{slug}/product:
+    post:
+      summary: Adds new product to a store by location or directly to a store
+      description: Creates a new store in the stores database
+      operationId: createProduct
+      tags:
+        - Products
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The store object that needs to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The product's name
+                price:
+                  type: number
+                  description: Price of the product in usd
+                owner_id: 
+                  type: string
+                  description: the uuid of the owner of the store - should correspond to the user table for authorization e.t.c.
+                description: 
+                  type: string
+                  description: Product description - organic e.t.c. nutritional content e.t.c
+                store_location: 
+                  type: string
+                  description: the store location the food is available in. 
+                category_id:
+                  type: string
+                  description: The category id the food belongs to
+              required:
+                - name
+                - price
+                - owner_id
+      responses:
+        '200':
+          description: Created Store object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  product:
+                    $ref: '#/components/schemas/products'
+  /api/v1/store/{slug}/products:
+    get:
+      tags: 
+        - Products
+      operationId: getProducts
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          required: false
+          description: uuid for the last product fetched.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Number of products per request (defaults to 10)
+          schema:
+            type: string
+      summary: Return Store information.
+      description: Return store information based on slug. 
+      responses:
+        '200':
+          description: list of products by store or store location
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  products:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/products'
+  /api/v1/store/{slug}/products/categories:
+    get: 
+      tags: 
+      - Products
+      - Product Categories
+      operationId: getProductCategories
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          required: false
+          description: uuid for the last product fetched.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          description: Number of products per request (defaults to 10)
+          schema:
+            type: string
+      responses:
+        '200':
+          description: list of products categories by store slug
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  productCategories:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/productCategory'
+  /api/v1/product/{productId}:
+    get: 
+      tags:
+      - Products
+      - Product
+      operationId: getProduct
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Single product based on passed product id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                  product: 
+                   $ref: '#/components/schemas/products'
+

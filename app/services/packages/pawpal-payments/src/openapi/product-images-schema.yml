@@ -1,0 +1,14 @@
+components:
+  schemas:
+    productImages:
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        product_id:
+          type: string
+
+            
+          

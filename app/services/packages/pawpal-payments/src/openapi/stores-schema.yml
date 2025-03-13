@@ -1,0 +1,30 @@
+components:
+  schemas:
+    stores:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "123456"
+        name:
+          type: string
+          example: "My New Store"
+        slug:
+          type: string
+          example: "my-new-store"
+        is_active:
+          type: boolean
+        phone_number: 
+          type: string
+        banner_url: 
+          type: string
+        logo_url:
+          type: string
+        description:
+          type: string
+        catch_phrase:
+          type: string
+        meta_data:
+          type: object
+          additionalProperties: true
+        

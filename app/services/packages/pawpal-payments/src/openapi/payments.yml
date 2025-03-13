@@ -1,0 +1,73 @@
+paths:
+  /api/v1/payment:
+    post:
+      summary: Creates a new payment for an order
+      description: Creates a new store in the stores database
+      operationId: createStore
+      tags:
+        - stores
+      requestBody:
+        description: The store object that needs to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The store's name
+                slug:
+                  type: string
+                  description: the store unique url. e.g store will be https://paw-pal.ca/stores/my-store
+                owner_id: 
+                  type: string
+                  description: the uuid of the owner of the store - should correspond to the user table for authorization e.t.c.
+                description: 
+                  type: string
+                  description: store description - what type of food you sell. organic e.t.c.
+                is_active: 
+                  type: string
+                  description: is the store active or not? 
+              required:
+                - name
+                - owner_id
+      responses:
+        '200':
+          description: Created Store object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  store:
+                    $ref: '#/components/schemas/stores'
+  /api/v1/store/{slug}:
+    get:
+      tags: 
+        - stores
+      operationId: getStore
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      summary: Return Store information.
+      description: Return store information based on slug. 
+      responses:
+        '200':
+          description: Created Store object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  store:
+                    $ref: '#/components/schemas/stores'
