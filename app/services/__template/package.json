@@ -1,5 +1,5 @@
 {
-  "name": "@pawpal-service/auth",
+  "name": "@pawpal-service/template",
   "version": "1.0.0",
   "description": "Service for authorization and authentication of pawpal users",
   "main": "index.js",
@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/index.js",
-    "migrate": "npx knex migrate:latest"
+    "migrate": "npx knex migrate:latest",
+    "migration:create": "read -p 'Enter migration name: ' name && npx knex migrate:make \"$name\""
   },
   "dependencies": {
     "@fastify/rate-limit": "^10.1.1",

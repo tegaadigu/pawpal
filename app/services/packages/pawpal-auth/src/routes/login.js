@@ -7,7 +7,7 @@ export const getLogin = async (request, reply) => {
 
 export const login = async (request, reply) => {
   try {
-      const response = performLogin(request);
+      const response = await performLogin(request);
       return reply.status(200).send({ message: 'success', ...response });
   }catch(e) {
     logError(request, e);

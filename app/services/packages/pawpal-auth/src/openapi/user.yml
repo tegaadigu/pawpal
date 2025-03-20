@@ -1,0 +1,36 @@
+paths:
+  /api/v1/user:
+    post:
+      summary: Gets a user based on email address or phone number
+      description: Retrieves a user if a user exists by email address or phone number
+      operationId: getUser
+      tags:
+        - Users
+      requestBody:
+        description: The user / service account object that needs to be retrieved
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                  pattern: '^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'
+                  description: The user's phone number
+                email:
+                  type: string
+                  description: the user's email address
+      responses:
+        '200':
+          description: Retrieved User object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  user:
+                    $ref: '#/components/schemas/user'

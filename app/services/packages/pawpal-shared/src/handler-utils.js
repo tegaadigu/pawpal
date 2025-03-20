@@ -1,9 +1,8 @@
 export const createHandlerUtil = async(request) => {
-  const { db } = request;
-  const dbClient = await db.connect();
+  const { pgClient } = request;
 
   const commonUtil = {
-    dbClient
+    dbClient: pgClient
   }
 
   return commonUtil;

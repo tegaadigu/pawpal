@@ -8,6 +8,7 @@ const db = async (fastify, options) => {
     max = 20, 
     idleTimeoutMillis = 30000,
     connectionTimeoutMillis = 2000,
+    acquireTimeoutMillis = 5000,
     port,
     dbname,
     password
@@ -22,17 +23,20 @@ const db = async (fastify, options) => {
     database: dbname,
     max,
     idleTimeoutMillis,
-    connectionTimeoutMillis
+    connectionTimeoutMillis,
+    acquireTimeoutMillis
   });
 
-  fastify.addHook('onClose', (instance, done) => {
-    pool.end().then(done).catch(done);
-  });
-
-  fastify.decorate('db', pool)
-  fastify.addHook('preHandler', async (request, reply) => {
-    request.db = fastify.db;
-  })
+  if(!fastify.db) {
+    fastify.addHook('onClose', (instance, done) => {
+      pool.end().then(done).catch(done);
+    });
+  
+    fastify.decorate('db', pool)
+    fastify.addHook('preHandler', async (request, reply) => {
+      request.db = fastify.db;
+    })
+  }
 }
 
 export default fp(db);

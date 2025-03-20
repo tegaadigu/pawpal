@@ -1,0 +1,64 @@
+paths:
+  /api/v1/order:
+    post:
+      summary: Creates a new product order.
+      description: Creates a new product order for pawpal-services. 
+      operationId: createOrder
+      tags:
+        - Orders
+      requestBody:
+        description: The Order object that needs to be created
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_slug:
+                  type: string
+                  description: slug of store that the order belongs to
+                phone_number:
+                  type: string
+                  description: phone number of the customer who is about to make a purchase
+                email: 
+                  type: string
+                  description: The email address of the customer the order belongs to.
+              required:
+                - store_slug
+      responses:
+        '200':
+          description: Created Store object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  product:
+                    $ref: '#/components/schemas/orders'
+  /api/v1/order/{orderId}:
+    get: 
+      tags:
+      - Orders
+      operationId: getOrder
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Single product based on passed product id
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                  product: 
+                   $ref: '#/components/schemas/orders'
+

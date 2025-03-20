@@ -1,0 +1,15 @@
+components:
+  schemas:
+    productCategory:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        meta_data:
+          type: object
+          additionalProperties: true
+          

@@ -1,28 +1,12 @@
-/**
- * @swagger
- * /user/{userId}:
- *   get:
- *     summary: Retrieve a user
- *     description: Retrieves an already created user
- *     operationId: getUser
- *     parameters: 
- *      - in: path
- *        name: userId
- *        required: true
- *        schema: 
- *          type: string
- *        description: The unique identifier for a user
- *     responses:
- *       200:
- *         description: Retrieved user
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties: 
- *                email: 
- *                  type: string
- */
+import { getUserByEmailOrPhoneNumber } from "../handlers/user/user.js";
+import { logError } from "../utils/logger.js"
+
 export const getUser = async (request, reply) => {
-  return reply.status(200).send({ user: {id: '12332'}})
+  try {
+    const user = await getUserByEmailOrPhoneNumber(request);
+    return reply.status(200).send({ user })
+  }catch(e) {
+    logError(request, e);
+    return reply.status(500).send({ message: e.message })
+  }
 }

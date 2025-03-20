@@ -8,22 +8,21 @@ export class UserDao {
   }
   async getUserByPhoneNumber(phoneNumber){
     const query = {
-      text: "Select id, phone_number, role from public.users where phone_number = $1",
+      text: "Select u.id, u.phone_number, u.role, to_jsonb(a) as account from public.users as u LEFT JOIN user_account as a ON a.user_id = u.id where phone_number = $1",
       values: [phoneNumber]
     }
     const user = await this.dbClient.query(query);
-    return user.rows;
+    return user.rows?.[0];
   }
 
-  async getUerByEmail(email){
+  async getUserByEmail(email){
     const query = {
-      text: "Select id, phone_number, role from public.users where email = $1",
+      text: "Select u.id, u.phone_number, u.role, to_jsonb(a) as account from public.users as u LEFT JOIN user_account as a ON a.user_id = u.id where email = $1",
       values: [email]
     }
     const user = await this.dbClient.query(query);
-    return user.rows;
+    return user?.rows?.[0];
   }
-
   async save(params) {
     const user = {
       email: '',

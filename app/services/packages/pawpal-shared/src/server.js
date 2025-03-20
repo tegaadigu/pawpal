@@ -5,6 +5,7 @@ import FastifyOpenAPIGlue from 'fastify-openapi-glue';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
+import cors from '@fastify/cors';
 import { cleanEnv, str, num } from 'envalid';
 import { readdirSync } from 'fs';
 import { readFile } from 'fs/promises';
@@ -91,6 +92,13 @@ const configureRoutes = async () => {
   });
 }
 
+const registerCors = async () => {
+  app.register(cors, {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  })
+}
+
 const registerShutdownHooks = () => {
   const shutdown = async (signal) => {
     app.log.info(`Received ${signal}. Closing server...`);
@@ -126,6 +134,7 @@ const start = async () => {
   await configureRoutes()
   await configureDB()
   registerShutdownHooks();
+  registerCors();
   await startApp()
 }
 

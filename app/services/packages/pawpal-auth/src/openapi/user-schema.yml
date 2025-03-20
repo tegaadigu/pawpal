@@ -9,6 +9,8 @@ components:
         email:
           type: string
           example: "john.doe@email.com"
-        phoneNumber:
+        phone_number:
           type: string
           example: 123445343433232
+        account: 
+          $ref: '#/components/schemas/userAccount'

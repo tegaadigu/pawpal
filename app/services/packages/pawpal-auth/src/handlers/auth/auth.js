@@ -2,9 +2,9 @@ import { logError } from "../../utils/logger.js";
 import utils from "./util.js"
 
 export const performLogin = async (request) => {
+  const { handleLogin } = await utils(request);
   try {
-    const { handleLogin } = await utils(request);
-    const resp = handleLogin();
+    const resp = await handleLogin();
     return resp;
   }catch (e) {
     logError(request, e);

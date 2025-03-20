@@ -1,0 +1,15 @@
+components:
+  schemas:
+    productPrices:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: number
+        currency_code:
+          type: string
+        meta_data:
+          type: object
+          additionalProperties: true
+          

@@ -23,7 +23,7 @@ const utils = async (request) => {
   }
 
   const registerEmailAndPassword = async () => {
-    const existingUser = await userDao.getUerByEmail(body?.email);
+    const existingUser = await userDao.getUserByEmail(body?.email);
     if (!existingUser.length) {
       const user = await userDao.saveUser({
         email: body?.email,

@@ -322,6 +322,24 @@
       "projectFolder": "packages/pawpal-auth",
       "versionPolicyName": "PublishPackage",
       "shouldPublish": true
+    },
+    {
+      "packageName": "@pawpal-service/store",
+      "projectFolder": "packages/pawpal-store",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@pawpal-service/payments",
+      "projectFolder": "packages/pawpal-payments",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
+    },
+    {
+      "packageName": "@pawpal-service/orders",
+      "projectFolder": "packages/pawpal-orders",
+      "versionPolicyName": "PublishPackage",
+      "shouldPublish": true
     }
     // {
     //   /**

@@ -10,7 +10,8 @@
   "scripts": {
     "start": "nodemon --env-file=.env src/index.js",
     "docker:start": "pnpm install && nodemon --env-file=.env src/index.js",
-    "migrate": "npx knex migrate:latest"
+    "migrate": "npx knex migrate:latest",
+    "migration:create": "read -p 'Enter migration name: ' name && npx knex migrate:make \"$name\""
   },
   "dependencies": {
     "@fastify/rate-limit": "^10.1.1",
