@@ -12,6 +12,7 @@ export const CartContainer = () => {
   const { items, totalItems, updateCart, subTotal } = useCheckoutContext();
   const { storeSlug } = useParams();
   const { store } = useStore(storeSlug as string)?.data || {};
+  console.log('items in cart et all', { items, totalItems, subTotal })
 
   return (
     <>
@@ -104,7 +105,7 @@ export const CartContainer = () => {
               <Card className="mt-6 w-full relative">
                 <CardBody>
                   <div className="flex flex-col">
-                    <span className="text-2xl font-bold font-crimson">Cart Total</span>
+                    <span className="text-2xl font-bold font-crimson">Order Summary</span>
                     <div className="mt-8 mb-8 border-md flex justify-between">
                       <Typography className="text-lg">
                         Sub Total

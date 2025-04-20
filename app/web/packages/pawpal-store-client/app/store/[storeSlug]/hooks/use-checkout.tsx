@@ -8,6 +8,7 @@ interface CheckoutInterface {
   subTotal: number,
   addToCart(product: Product, priceId?: string, quantity?: number): void,
   updateCart(product: ProductCheckout, quantity: number): void,
+  handleCheckout(): Promise<string>
 }
 
 export interface ProductCheckout extends Product {
@@ -112,6 +113,10 @@ export const useCheckout = (): CheckoutInterface => {
       return sum + (item.quantity * selectedPrice.price)
     }, 0);
   }, [items])
+
+  const handleCheckout = React.useCallback(() => {
+
+  }, [])
 
   return {
     items,

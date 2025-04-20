@@ -1,0 +1,28 @@
+{
+  "name": "@pawpal-service/api-gateway",
+  "version": "1.0.0",
+  "description": "Api gateway service for backend to backend communication",
+  "main": "index.js",
+  "author": "Tega Adigu",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "compile": "tsc && copyfiles *.graphql dist/",
+    "start": "pnpm run compile && node ./dist/index.js",
+    "docker:start": "pnpm install && nodemon --env-file=.env src/index.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/merge": "^9.0.24",
+    "graphql": "^16.10.0",
+    "graphql-tag": "^2.12.6",
+    "graphql-tools": "^9.0.18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.11",
+    "copyfiles": "^2.4.1",
+    "typescript": "^5.8.2"
+  }
+}

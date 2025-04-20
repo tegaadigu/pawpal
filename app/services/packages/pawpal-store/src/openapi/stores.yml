@@ -71,3 +71,25 @@ paths:
                     example: "success"
                   store:
                     $ref: '#/components/schemas/stores'
+/api/v1/stores:
+    get:
+      tags: 
+        - stores
+      operationId: getStores
+      summary: Return all Store information.
+      description: Return all store information based. 
+      responses:
+        '200':
+          description: Created Store object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: "success"
+                  stores:
+                    type: array
+                    items: 
+                      $ref: '#/components/schemas/stores'
