@@ -1,6 +1,6 @@
 import { CartContainer } from "./components/CartContainer"
 import { queryClient } from "@/store/[storeSlug]/query-client";
-import { getProductCategories, getProductCategoriesKey, getProductQueryKey, getProducts, getStore, getStoreQueryKey } from "@/store/[storeSlug]/utils";
+import { getStore, getStoreQueryKey } from "@/store/[storeSlug]/utils";
 import { STALE_TIME } from "@/store/constants";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 

@@ -1,5 +1,7 @@
 import { GetProductsQueryParam } from "@/@types/product";
 
+export const DEFAULT_CURRENCY = "CAD";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fetchData = async (path: string, params: any = {}) => {
   const url = process.env.NEXT_PUBLIC_STORES_API_URL;
@@ -38,3 +40,28 @@ export const getProductCategoriesKey = (slug: string): Array<string> => {
 export const getProduct = async (productId: string) => {
   return fetchData(`product/${productId}`)
 }
+
+export const createOrder = async (orderData: OrderData) => {
+  const params = {
+    method: 'POST',
+    body: JSON.stringify(orderData)
+  }
+  return fetchData('/order', params)
+}
+
+
+/**
+ * @param items 
+ */
+export const saveItemsInLocalStorage = (items: Record<string, Array<ProductCheckout>>) => {
+  localStorage.setItem("cart", JSON.stringify(items));
+}
+
+export const getItemsfromLocalStorage = () => {
+  const items = localStorage.getItem('cart');
+  if(items) {
+    return JSON.parse(items)
+  }
+  return []
+}
+

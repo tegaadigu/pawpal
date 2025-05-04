@@ -5,12 +5,4 @@ components:
       properties:
         id:
           type: string
-        name:
-          type: string
-        price:
-          type: number
-        description:
-          type: string
-        meta_data:
-          type: object
-          additionalProperties: true
+      additionalProperties: true

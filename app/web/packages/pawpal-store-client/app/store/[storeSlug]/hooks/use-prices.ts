@@ -39,11 +39,9 @@ export const usePrices = (product: Product) => {
   }, [selectedPrice, product])
 
   const getPriceById = React.useCallback((priceId: string) => {
-    console.log('get Price by id..', priceId)
     return prices?.find(price => price.id === priceId);
   }, [product, prices])
 
-  console.log('prices and everything else --->', prices)
 
   const updateSelectedPrice = React.useCallback((priceId: string) => {
       const priceToAdd = product?.prices?.find(({ id }) => id === priceId);

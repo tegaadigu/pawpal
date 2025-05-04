@@ -28,6 +28,7 @@ export type ProductPrice = {
   id: string,
   price: number,
   meta_data: ProductPriceMetaData,
+  currency_code: string,
 }
 
 export type Product = {

@@ -3,9 +3,11 @@ import { logError } from "../utils/logger.js"
 
 export const createOrder = async (request, reply) => {
   try {
-    const product = await createNewOrder(request);
-    return reply.status(200).send({ product })
+    const order = await createNewOrder(request);
+    console.log('order being returned main main.... --->', { order })
+    return reply.status(200).send({ order })
   }catch(e) {
+    console.log('error happening ----->', e)
     logError(request, e);
     return reply.status(500).send(e.message);
   }

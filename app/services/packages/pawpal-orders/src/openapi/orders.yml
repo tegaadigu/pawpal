@@ -36,7 +36,7 @@ paths:
                   message: 
                     type: string
                     example: "success"
-                  product:
+                  order:
                     $ref: '#/components/schemas/orders'
   /api/v1/order/{orderId}:
     get: 

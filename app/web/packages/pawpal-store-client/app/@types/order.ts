@@ -1,4 +1,4 @@
-import { ProductCheckout } from "@/store/[storeSlug]/hooks/use-checkout"
+import { ProductCheckout } from "./checkout"
 
 export type OrderData = {
   store_slug: string

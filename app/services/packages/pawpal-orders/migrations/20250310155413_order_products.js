@@ -6,8 +6,10 @@ export const up = async function(knex) {
   // Create store_hours table
   await knex.schema.createTable('order_products', (table) => {
     table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
-    table.uuid('product_id').notNullable() //foreign key to store
+    table.uuid('order_id').references('id').inTable('orders').onDelete('CASCADE').onUpdate('CASCADE') //foreign key to store
+    table.uuid('product_id').notNullable()
     table.string('price_id').notNullable()
+    table.integer('quantity').notNullable()
     table.double('amount').nullable();
     table.jsonb('meta_data').nullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());

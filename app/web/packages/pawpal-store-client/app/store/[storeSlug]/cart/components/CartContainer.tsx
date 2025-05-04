@@ -1,18 +1,25 @@
 'use client';
 
 import { Alert, Button, Card, CardBody, CardFooter, Typography } from "@material-tailwind/react"
-import { ProductCheckout, useCheckoutContext } from "../../hooks/use-checkout";
+import { useCheckoutContext } from "../../hooks/use-checkout";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useStore } from "@/store/[storeSlug]/hooks/use-store";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { CartProductDetail } from "./CartProductDetail";
+import React from "react";
+import { ProductCheckout } from "@/@types/checkout";
 
 export const CartContainer = () => {
-  const { items, totalItems, updateCart, subTotal } = useCheckoutContext();
+  const { items, totalItems, updateCart, subTotal, handleCheckout } = useCheckoutContext();
   const { storeSlug } = useParams();
   const { store } = useStore(storeSlug as string)?.data || {};
-  console.log('items in cart et all', { items, totalItems, subTotal })
+  const router = useRouter()
+
+  const onCheckout = React.useCallback(async () => {
+    const checkoutId = await handleCheckout(storeSlug as string)
+    // router.push(`/checkout/${checkoutId}`)
+  }, [])
 
   return (
     <>
@@ -118,7 +125,7 @@ export const CartContainer = () => {
                 </CardBody>
                 <CardFooter>
                   <div className="w-full justify-self-end">
-                    <Button className="w-full">Checkout</Button>
+                    <Button className="w-full" onClick={onCheckout}>Checkout</Button>
                   </div>
                 </CardFooter>
               </Card>

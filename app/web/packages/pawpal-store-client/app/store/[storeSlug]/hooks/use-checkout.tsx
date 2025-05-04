@@ -1,19 +1,14 @@
 import { Product } from "@/@types/product"
+import { useMutation } from "@tanstack/react-query"
 import React, { createContext, useContext, ReactNode } from "react"
+import { DEFAULT_CURRENCY, getItemsfromLocalStorage, saveItemsInLocalStorage } from "../utils"
+import { Checkout, ProductCheckout } from "@/@types/checkout"
 
-
-interface CheckoutInterface {
-  items?: Record<string, Array<Product>>
-  totalItems: number,
-  subTotal: number,
-  addToCart(product: Product, priceId?: string, quantity?: number): void,
-  updateCart(product: ProductCheckout, quantity: number): void,
-  handleCheckout(): Promise<string>
-}
-
-export interface ProductCheckout extends Product {
-  quantity: number,
-  priceId: string
+interface ProductItems {
+  amount: number,
+  price_id: string,
+  product_id: string,
+  quantity: number
 }
 
 const handleExistingItemInCart = (items: Record<string, Array<ProductCheckout>>, product: Product, priceId: string, quantity: number): Array<ProductCheckout> => {
@@ -68,13 +63,30 @@ const updateCartItem = (items: Record<string, Array<ProductCheckout>>, product: 
 }
 
 
-const saveItemsInLocalStorage = (items: Record<string, Array<ProductCheckout>>) => {
-  localStorage.setItem("cart", JSON.stringify(items));
+const useCheckoutMutation = () => {
+  return useMutation({
+    mutationKey: ['checkout'],
+    mutationFn: async () => {
+      console.log('hello world..')
+      return {}
+    } 
+  })
 }
-
-export const useCheckout = (): CheckoutInterface => {
+export const useCheckout = (): Checkout => {
   const [items, setItems] = React.useState<Record<string, Array<ProductCheckout>>>({})
   const [totalItems, setTotalItems] = React.useState(0);
+  const { mutateAsync } = useCheckoutMutation();
+
+  console.log('items items -->', {items})
+
+  React.useEffect(() => {
+    const hasItems = Object.keys(items).length
+    if(!hasItems) {
+      const itemsFromLocalstorage = getItemsfromLocalStorage()
+      setItems(itemsFromLocalstorage)
+      updateTotalItems(itemsFromLocalstorage)
+    }
+  }, [])
 
   const updateTotalItems = React.useCallback((updatedItems: Record<string, Array<ProductCheckout>>) => {
     const newTotal = Object.values(updatedItems).flat().reduce((sum, item) => sum + item.quantity, 0);
@@ -114,20 +126,69 @@ export const useCheckout = (): CheckoutInterface => {
     }, 0);
   }, [items])
 
-  const handleCheckout = React.useCallback(() => {
+  const getCartCurrency = React.useCallback(() => {
+    const key = Object.keys(items)[0];
+    const item = items[key]?.[0]
+    if (item?.priceId) {
+      const price = item.prices.find((price) => price.id === item.priceId)
+      return price?.currency_code || DEFAULT_CURRENCY
+    }
+    return DEFAULT_CURRENCY
+  }, [items])
 
-  }, [])
+  const getProductItems = React.useCallback(() => {
+    const itemsToReturn: Array<ProductItems> = [];
+    console.log('items -->', items)
+    Object.keys(items).forEach(key => {
+      const products = items[key]
+       products.forEach(product => {
+        const price = product?.prices?.find(({ id }) => id === product.priceId)
+        console.log('price price --->', price);
+        itemsToReturn.push({
+          product_id: product.id,
+          price_id: product.priceId,
+          amount: price?.price || 0,
+          quantity: product.quantity,
+        })
+      })
+    })
+
+    console.log('items to return --->',itemsToReturn)
+
+    return itemsToReturn;
+    
+  }, [items])
+
+
+  console.log('la lalal items --->', { items })
+  const handleCheckout = React.useCallback(async (store_slug: string) => {
+    try {
+      const data = {
+        store_slug,
+        currency: getCartCurrency(),
+        total_amount: subTotal,
+        products: getProductItems(),
+      }
+      console.log('data --->', data)
+      // mutateAsync()
+    }catch(e) {
+      console.log('error happened -->', e)
+      return ""
+    }
+    return "checkout_id"
+  }, [items, getCartCurrency])
 
   return {
     items,
     addToCart,
     totalItems,
     updateCart,
-    subTotal
+    subTotal,
+    handleCheckout
   }
 }
 
-const CheckoutContext = createContext<CheckoutInterface | null>(null);
+const CheckoutContext = createContext<Checkout | null>(null);
 
 export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   const checkout = useCheckout();
@@ -138,7 +199,7 @@ export const CheckoutProvider = ({ children }: { children: ReactNode }) => {
   )
 }
 
-export const useCheckoutContext = (): CheckoutInterface => {
-  const context = useContext(CheckoutContext) as CheckoutInterface;
+export const useCheckoutContext = (): Checkout => {
+  const context = useContext(CheckoutContext) as Checkout
   return context;
 }

@@ -9,16 +9,14 @@ import { fetch, fetchJSON } from "@pawpal-service/shared"
 export const getOrCreateUser = async (params) => {
   const { email, phone_number } = params;   
   let { user } = await getUserByEmailOrPhoneNumber({ email, phone_number });
-  // if (!user) {
-  //   user = await createUser(params);
-  // }
-
-  console.log('user user to be created...', user);
+  console.log('user from get User --->', user)
+  if (!user) {
+    user = await createUser(params);
+  }
   return user;
 }
 
 /**
- * 
  * @param {Object} params 
  */
 const createUser = async (params) => {
@@ -31,8 +29,11 @@ const createUser = async (params) => {
     return null;
   }
   const userAccount = await fetch(`${config.AUTH_ENDPOINT}/api/v1/account`, {
-     
+    method: "POST",
+    body: { }
   })
+
+  return userAccount;
 }
 
 /**
