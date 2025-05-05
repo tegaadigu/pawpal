@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 import React, { createContext, useContext, ReactNode } from "react"
 import { DEFAULT_CURRENCY, getItemsfromLocalStorage, saveItemsInLocalStorage } from "../utils"
 import { Checkout, ProductCheckout } from "@/@types/checkout"
+import { apiClient } from "@/store/[storeSlug]/api-client";
 
 interface ProductItems {
   amount: number,
@@ -66,9 +67,12 @@ const updateCartItem = (items: Record<string, Array<ProductCheckout>>, product: 
 const useCheckoutMutation = () => {
   return useMutation({
     mutationKey: ['checkout'],
-    mutationFn: async () => {
-      console.log('hello world..')
-      return {}
+    mutationFn: async (data) => {
+      const res = await apiClient.orders.createOrder({
+        body: JSON.stringify(data)
+      })
+
+      return await res.json();
     } 
   })
 }
@@ -152,15 +156,11 @@ export const useCheckout = (): Checkout => {
         })
       })
     })
-
-    console.log('items to return --->',itemsToReturn)
-
     return itemsToReturn;
     
   }, [items])
 
 
-  console.log('la lalal items --->', { items })
   const handleCheckout = React.useCallback(async (store_slug: string) => {
     try {
       const data = {
@@ -169,14 +169,13 @@ export const useCheckout = (): Checkout => {
         total_amount: subTotal,
         products: getProductItems(),
       }
-      console.log('data --->', data)
-      // mutateAsync()
+      const { order } = await mutateAsync(data)
+      return order.id
     }catch(e) {
       console.log('error happened -->', e)
       return ""
     }
-    return "checkout_id"
-  }, [items, getCartCurrency])
+  }, [items, getCartCurrency, getProductItems])
 
   return {
     items,

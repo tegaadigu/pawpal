@@ -1,0 +1,21 @@
+{
+  "name": "@pawpal-web/utils",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "api-client:generate": "node ./scripts/generate-api-client.js"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "prettier": "^3.5.3",
+    "yaml": "^2.7.1"
+  }
+}

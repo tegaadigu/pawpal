@@ -19,8 +19,9 @@ export class StripePaymentProvider extends PaymentProviderInterface {
         payment_method_types: ["card"],
         confirm: true,
       })
-      return { success: true, data: paymentIntent }
       // Store payment intent in database. Queue this option?
+
+      return { success: true, data: paymentIntent }
     }catch(e) {
       return { success: false, error: error.message }
     }

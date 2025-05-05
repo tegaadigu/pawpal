@@ -92,11 +92,26 @@ const configureRoutes = async () => {
   });
 }
 
+// Derive from some env variable or secrets.
+const allowedOrigins = [
+  'http://localhost:3000'
+]
+
 const registerCors = async () => {
-  app.register(cors, {
-    origin: '*',
+  await app.register(cors, {
+    credentials: true,
+    strictPreflight: false,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   })
+
+  console.log('after registering cors...')
 }
 
 const registerShutdownHooks = () => {
@@ -134,7 +149,7 @@ const start = async () => {
   await configureRoutes()
   await configureDB()
   registerShutdownHooks();
-  registerCors();
+  await registerCors();
   await startApp()
 }
 

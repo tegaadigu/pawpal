@@ -1,4 +1,7 @@
 import { GetProductsQueryParam } from "@/@types/product";
+import { apiClient } from "./api-client";
+import { OrderData } from "@/@types/order";
+import { ProductCheckout } from "@/@types/checkout";
 
 export const DEFAULT_CURRENCY = "CAD";
 
@@ -20,9 +23,9 @@ export const getStoreQueryKey = (slug: string): Array<string> => {
 
 export const getProducts = async (slug: string, queryParams: GetProductsQueryParam = {}) => {
   const queryString = new URLSearchParams(queryParams).toString();
+  const response = await apiClient.store.getProducts(slug, {});
+  return await response.json()
 
-  console.log('queryString for getProducts --->', { queryString })
-  return fetchData(`store/${slug}/products?${queryString}`);
 }
 
 export const getProductQueryKey = (slug: string, extraKeys?: Array<string>): Array<string> => {
@@ -38,7 +41,8 @@ export const getProductCategoriesKey = (slug: string): Array<string> => {
 }
 
 export const getProduct = async (productId: string) => {
-  return fetchData(`product/${productId}`)
+  const response = await apiClient.store.getProduct(productId, {})
+  return await response.json()
 }
 
 export const createOrder = async (orderData: OrderData) => {
