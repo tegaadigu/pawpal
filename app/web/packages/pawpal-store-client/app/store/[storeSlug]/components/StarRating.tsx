@@ -1,7 +1,7 @@
 import React from "react";
 import { StarIcon } from "@heroicons/react/24/solid";
 
-const StarRating = ({ rating, maxStars = 5 }: { rating: number, maxStars?: number }) => {
+const StarRating = ({ rating = 0, maxStars = 5 }: { rating: number, maxStars?: number }) => {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
   const emptyStars = maxStars - fullStars - (hasHalfStar ? 1 : 0);

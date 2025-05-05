@@ -43,33 +43,74 @@ export const getApiClientJSContent = (apiClient) => {
         
         return this.services[appName].url
       }
-    
+
+      /**
+       * @param {Object} headers
+       * @param {string} token
+       * @return {Object}
+       */ 
+      _getHeaders = (headers, token) => {
+        if (token) {
+          headers.Authorization = \`Bearer \${token}\`
+        }
+        return {
+          ...this.headers,
+          ...headers,
+        }
+      }
+
+      /**
+       * @param {string} url
+       * @param {RequestInit} args
+       * @return {Object}
+       */
+      _makeRequest = async (url, args) => {
+        const response = await fetch(url, args)
+        return response
+      }
+
+      /**
+       * @return {string}
+       */
+      _getToken = () => {
+        return localStorage.getItem('token')
+      }
+
+      /**
+       * @return {void}
+       */
+      _handleRefreshToken = async () => {
+        const refreshTokenRes = await fetch(\`\${this._getUrl('auth')}/auth/refresh-token\`, {
+          method: 'POST',
+          headers: args.headers,
+          credentials: 'include',
+        })
+
+        const refreshTokenData = await refreshTokenRes.json()
+        const { token } = refreshTokenData
+        localStorage.setItem('token', token)
+      }
+
       /**
        * _fetch helper
        * @param {string} url
        * @param {RequestInit} args
        */
       _fetch = async (url, args) => {
-        const token = localStorage.getItem('token')
-        if (token) {
-          args.headers = {
-            ...args.headers,
-            Authorization: \`Bearer \${token}\`,
+        try {
+        const token = this._getToken()
+        const headers = this._getHeaders(args.headers, token)
+
+        const response = await this._makeRequest(url, { ...args, headers })
+        
+        if (response.headers.get('X-Refresh-Token')) {
+            await this._handleRefreshToken()
           }
+          return await response.json()
+        } catch (error) {
+          console.error(error)
+          throw error
         }
-        const res = await fetch(url, args)
-        const needToRefreshToken = res.headers.get('X-Refresh-Token') != null
-        if (needToRefreshToken) {
-          const refreshTokenRes = await fetch(\`\${this._getUrl('auth')}/auth/refresh-token\`, {
-            method: 'POST',
-            headers: args.headers,
-            credentials: 'include',
-          })
-          const refreshTokenData = await refreshTokenRes.json()
-          const { token } = refreshTokenData
-          localStorage.setItem('token', token)
-        }
-        return res
       }
     `
 }

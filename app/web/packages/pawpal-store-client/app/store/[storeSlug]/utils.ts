@@ -24,7 +24,8 @@ export const getStoreQueryKey = (slug: string): Array<string> => {
 export const getProducts = async (slug: string, queryParams: GetProductsQueryParam = {}) => {
   const queryString = new URLSearchParams(queryParams).toString();
   const response = await apiClient.store.getProducts(slug, {});
-  return await response.json()
+  console.log('response response -->', {response, queryString})
+  return await response
 
 }
 
@@ -41,8 +42,7 @@ export const getProductCategoriesKey = (slug: string): Array<string> => {
 }
 
 export const getProduct = async (productId: string) => {
-  const response = await apiClient.store.getProduct(productId, {})
-  return await response.json()
+  return await apiClient.store.getProduct(productId, {})
 }
 
 export const createOrder = async (orderData: OrderData) => {

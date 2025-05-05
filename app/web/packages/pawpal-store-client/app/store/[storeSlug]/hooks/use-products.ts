@@ -1,8 +1,9 @@
 'use client';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
-import { getProducts, getProductQueryKey, getProduct } from '@/store/[storeSlug]/utils';
+import { getProducts, getProductQueryKey } from '@/store/[storeSlug]/utils';
 import { REACT_QUERY_DEFAULT_PROPS } from '@/store/constants';
 import { GetProductsQueryParam, Product } from '@/@types/product';
+import { apiClient } from '../api-client';
 
 export const getProductParams = (options: GetProductsQueryParam = {}): GetProductsQueryParam => {
   const constructedOptions: GetProductsQueryParam = {};
@@ -26,7 +27,7 @@ export const useProducts = (slug: string, queryParam: GetProductsQueryParam = {}
 export const useProduct = (productId: string) : UseQueryResult<{ product: Product}> => {
   return useQuery({
     queryKey: getProductQueryKey(productId),
-    queryFn: () => getProduct(productId),
+    queryFn: () => apiClient.store.getProduct(productId, {}),
     ...REACT_QUERY_DEFAULT_PROPS
   })
 }

@@ -14,6 +14,7 @@ export const PDP = () => {
   const { storeSlug, productSlug } = useParams();
   const { store = {} } = useStore(storeSlug as string)?.data || {};
   const { product = {} as Product } = useProduct(productSlug as string)?.data || {};
+  console.log('product product --->', product)
   return (
     <>
       <div className="flex flex-col gap-space-16 md:mt-space-24 md:flex-row md:gap-space-40">
