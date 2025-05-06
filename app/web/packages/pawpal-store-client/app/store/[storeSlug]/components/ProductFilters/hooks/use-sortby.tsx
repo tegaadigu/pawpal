@@ -1,3 +1,4 @@
+import { SortByInterface, SortItem } from "@/@types/sortBy";
 import React, { createContext, useContext, ReactNode } from "react"
 
 const ITEMS_TO_SORT_BY: Array<SortItem> = [

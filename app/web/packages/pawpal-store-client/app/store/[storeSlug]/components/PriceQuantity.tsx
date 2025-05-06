@@ -1,4 +1,4 @@
-import { Typography, Input, IconButton } from "@material-tailwind/react"
+import { Input, IconButton } from "@material-tailwind/react"
 import { ChangeEventHandler, MouseEventHandler } from "react"
 
 export const PriceQuantity = ({ quantity, onAdd, onRemove, onUpdate, showDelete = false }: {

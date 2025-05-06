@@ -1,16 +1,13 @@
 'use client';
 import { useStore } from "@/store/[storeSlug]/hooks/use-store"
 import { useParams, notFound } from 'next/navigation';
-import { Header } from "../../../Header";
 import { StoreHeader } from "./StoreHeader";
 import { ProductGrid } from "./ProductGrid";
 import { SortByProvider } from "@/store/[storeSlug]/components/ProductFilters/hooks/use-sortby";
-import { CheckoutProvider } from "@/store/[storeSlug]/hooks/use-checkout";
 
 export const StoreContainer = (): React.ReactElement => {
   const { storeSlug: slug = '' } = useParams();
-  const { data = {} } = useStore(slug as string);
-  const { store, isLoading, error, isError } = data;
+  const { store } = useStore(slug as string)?.data || {};
 
   if (!store) {
     notFound();

@@ -11,5 +11,9 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "start": "rush start -p 10",
+    "lint": ""
+  },
   "packageManager": "pnpm@9.9.0+sha1.3edbe440f4e570aa8f049adbd06b9483d55cc2d2"
 }

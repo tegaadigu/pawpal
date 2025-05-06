@@ -15,7 +15,7 @@ export default function Home() {
         redirect('/login')
       }
     }catch(e) {
-      console.log('error - decoding -->');
+      console.log('error - decoding -->', e);
       redirect("/login")
     }
   }else {

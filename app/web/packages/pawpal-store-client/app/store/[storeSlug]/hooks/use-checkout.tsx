@@ -67,12 +67,10 @@ const updateCartItem = (items: Record<string, Array<ProductCheckout>>, product: 
 const useCheckoutMutation = () => {
   return useMutation({
     mutationKey: ['checkout'],
-    mutationFn: async (data) => {
-      const res = await apiClient.orders.createOrder({
+    mutationFn: async (data: unknown) => {
+      return await apiClient.orders.createOrder({
         body: JSON.stringify(data)
       })
-
-      return await res.json();
     } 
   })
 }
@@ -81,21 +79,18 @@ export const useCheckout = (): Checkout => {
   const [totalItems, setTotalItems] = React.useState(0);
   const { mutateAsync } = useCheckoutMutation();
 
-  console.log('items items -->', {items})
-
-  React.useEffect(() => {
-    const hasItems = Object.keys(items).length
-    if(!hasItems) {
-      const itemsFromLocalstorage = getItemsfromLocalStorage()
-      setItems(itemsFromLocalstorage)
-      updateTotalItems(itemsFromLocalstorage)
-    }
-  }, [])
-
   const updateTotalItems = React.useCallback((updatedItems: Record<string, Array<ProductCheckout>>) => {
     const newTotal = Object.values(updatedItems).flat().reduce((sum, item) => sum + item.quantity, 0);
     setTotalItems(newTotal);
   }, [])
+
+  React.useEffect(() => {
+    const itemsFromLocalstorage = getItemsfromLocalStorage();
+    if (itemsFromLocalstorage && Object.keys(itemsFromLocalstorage).length > 0) {
+      setItems(itemsFromLocalstorage);
+      updateTotalItems(itemsFromLocalstorage);
+    }
+  }, [updateTotalItems])
 
   const addToCart = React.useCallback(async (product: Product, priceId: string, quantity: number) => {
     const updatedItems = JSON.parse(JSON.stringify(items));
@@ -113,7 +108,7 @@ export const useCheckout = (): Checkout => {
     await saveItemsInLocalStorage(updatedItems);
     updateTotalItems(updatedItems);
 
-  }, [items])
+  }, [items, updateTotalItems])
 
 
   const updateCart = React.useCallback(async (product: ProductCheckout, quantity: number) => {
@@ -121,11 +116,11 @@ export const useCheckout = (): Checkout => {
     setItems(updatedItems)
     await saveItemsInLocalStorage(updatedItems)
     updateTotalItems(updatedItems)
-  }, [items])
+  }, [items, updateTotalItems])
 
   const subTotal = React.useMemo(() => {
     return Object.values(items).flat().reduce((sum, item) => {
-      const selectedPrice = item.prices.find(price => item.priceId === price.id) || { price: item.price };
+      const selectedPrice = item?.prices?.find(price => item.priceId === price.id) || { price: item.price };
       return sum + (item.quantity * selectedPrice.price)
     }, 0);
   }, [items])
@@ -142,12 +137,10 @@ export const useCheckout = (): Checkout => {
 
   const getProductItems = React.useCallback(() => {
     const itemsToReturn: Array<ProductItems> = [];
-    console.log('items -->', items)
     Object.keys(items).forEach(key => {
       const products = items[key]
        products.forEach(product => {
         const price = product?.prices?.find(({ id }) => id === product.priceId)
-        console.log('price price --->', price);
         itemsToReturn.push({
           product_id: product.id,
           price_id: product.priceId,
@@ -170,12 +163,16 @@ export const useCheckout = (): Checkout => {
         products: getProductItems(),
       }
       const { order } = await mutateAsync(data)
+      saveItemsInLocalStorage({
+        ...items,
+        orderId: order.id
+      })
       return order.id
     }catch(e) {
       console.log('error happened -->', e)
       return ""
     }
-  }, [items, getCartCurrency, getProductItems])
+  }, [getCartCurrency, subTotal, getProductItems, mutateAsync, items])
 
   return {
     items,

@@ -20,7 +20,7 @@ export function FeaturedImageGallery({ imageList = [] }: { imageList: Array<Prod
         />
       </div>
       <div className="grid grid-cols-5 gap-4">
-        {imageList?.map(({ path, id }, index) => (
+        {imageList?.map(({ path, id }) => (
           <div key={id}>
             <img
               onClick={() => setActive(path)}

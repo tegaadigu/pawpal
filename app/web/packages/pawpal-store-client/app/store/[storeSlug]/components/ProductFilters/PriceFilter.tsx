@@ -1,4 +1,4 @@
-import { Button, Input, Menu, MenuHandler, MenuList, Typography } from "@material-tailwind/react"
+import { Button, Input, Menu, MenuHandler, MenuList } from "@material-tailwind/react"
 import React, { ChangeEvent } from "react"
 
 export const PriceFilter = () => {

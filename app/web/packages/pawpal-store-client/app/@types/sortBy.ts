@@ -1,11 +1,11 @@
-type SortItem = {
+export type SortItem = {
   sortField: string,
   sortOrder: string,
   label: string
   id: string,
 }
 
-type SortByInterface = { 
+export type SortByInterface = { 
   itemsToSortBy: Array<SortItem>, 
   sortById: string,
   onSortBy: (sortByValue: string | undefined) => void,

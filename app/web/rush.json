@@ -16,7 +16,7 @@
    * path segment in the "$schema" field for all your Rush config files.  This will ensure
    * correct error-underlining and tab-completion for editors such as VS Code.
    */
-  "rushVersion": "5.133.0",
+  "rushVersion": "5.148.0",
 
   /**
    * The next field selects which package manager should be installed and determines its version.
@@ -26,7 +26,7 @@
    * Specify one of: "pnpmVersion", "npmVersion", or "yarnVersion".  See the Rush documentation
    * for details about these alternatives.
    */
-  "pnpmVersion": "8.15.8",
+  "pnpmVersion": "9.9.0",
 
   // "npmVersion": "6.14.15",
   // "yarnVersion": "1.9.4",
@@ -324,8 +324,8 @@
       "shouldPublish": false
     },
     {
-      "packageName": "@pawpal-web/customer-portal",
-      "projectFolder": "packages/pawpal-customer-portal",
+      "packageName": "@pawpal-web/merchant-portal",
+      "projectFolder": "packages/pawpal-merchant-portal",
       "versionPolicyName": "PublishPackage",
       "shouldPublish": false
     }

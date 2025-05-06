@@ -6,12 +6,12 @@ import {
   AccordionBody,
   Radio
 } from "@material-tailwind/react";
-import { useParams } from 'next/navigation';
-import { useProducts } from '@/store/[storeSlug]/hooks/use-products';
+// import { useParams } from 'next/navigation';
+// import { useProducts } from '@/store/[storeSlug]/hooks/use-products';
 
 export const Sidebar = () => {
-  const { slug = '' } = useParams();
-  const { data } = useProducts(slug as string);
+  // const { slug = '' } = useParams();
+  // const { data } = useProducts(slug as string);
   const [sortByOpen, setSortByOpen] = React.useState(false);
   const [sortByCategory, setSortByCategpry] = React.useState(false);
   return (

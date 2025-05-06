@@ -1,0 +1,17 @@
+{
+  "name": "@pawpal-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:services": "cd services && rush start",
+    "lint:services": "cd services && rush lint",
+    "lint:web": "cd web && rush lint",
+    "build:web": "cd web && rush build",
+    "test:web": "cd web && rush test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

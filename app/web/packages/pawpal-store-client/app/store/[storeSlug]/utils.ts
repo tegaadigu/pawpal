@@ -14,7 +14,7 @@ const fetchData = async (path: string, params: any = {}) => {
 }
 
 export const getStore = async (slug: string) => {
-  return fetchData(`store/${slug}`);
+  return await fetchData(`store/${slug}`);
 }
 
 export const getStoreQueryKey = (slug: string): Array<string> => {

@@ -17,9 +17,9 @@ export const CartContainer = () => {
   const router = useRouter()
 
   const onCheckout = React.useCallback(async () => {
-    const checkoutId = await handleCheckout(storeSlug as string)
-    // router.push(`/checkout/${checkoutId}`)
-  }, [])
+    const orderId = await handleCheckout(storeSlug as string)
+    router.push(`/store/${storeSlug}/checkout/${orderId}`)
+  }, [handleCheckout, router, storeSlug])
 
   return (
     <>
@@ -96,7 +96,7 @@ export const CartContainer = () => {
                     const item = items[key] as Array<ProductCheckout>
                     return item.map((product) => {
                       return (
-                        <CartProductDetail product={product} updateCart={updateCart} />
+                        <CartProductDetail key={product.id} product={product} updateCart={updateCart} />
                       )
                     })
 

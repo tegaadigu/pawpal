@@ -1,14 +1,14 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from "next/server";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
-const SECRET_KEY = process.env.JWT_SECRET; 
+const SECRET_KEY = process.env.JWT_SECRET || ""; 
 
 export function middleware(req: NextRequest) {
   const { cookies } = req;
   
   // Get the token from cookies or Authorization header
-  const token = cookies.get('token') || req.headers.get('Authorization')?.split(' ')[1];
+  const token = (cookies.get('token') || req.headers.get('Authorization')?.split(' ')[1]) as string;
 
   if (!token) {
     // If no token, redirect to login page or return an unauthorized response
@@ -17,10 +17,11 @@ export function middleware(req: NextRequest) {
 
   try {
     // Verify the JWT
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
-    // Optionally, attach user data to the request (you can pass this to API routes later if needed)
-    req.nextUrl.searchParams.set('userId', decoded.id);
+    if(decoded?.id) {
+      req.nextUrl.searchParams.set('userId', decoded.id);
+    }
 
     // Continue to the requested page
     return NextResponse.next();

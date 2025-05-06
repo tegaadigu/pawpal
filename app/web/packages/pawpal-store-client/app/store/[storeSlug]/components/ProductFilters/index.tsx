@@ -1,10 +1,9 @@
 'use client';
 import { Select, Option, Button, Typography} from "@material-tailwind/react";
 import { useParams } from "next/navigation";
-import { getProductParams, useProducts } from "@/store/[storeSlug]/hooks/use-products";
+import { useProducts } from "@/store/[storeSlug]/hooks/use-products";
 import { useCategories} from "@/store/[storeSlug]/hooks/use-categories";
 import { ProductCategory } from "@/@types/product";
-import { useSortByContext } from "@/store/[storeSlug]/components/ProductFilters/hooks/use-sortby";
 import { SortFilter } from "./SortFilter";
 import { PriceFilter } from "./PriceFilter";
 

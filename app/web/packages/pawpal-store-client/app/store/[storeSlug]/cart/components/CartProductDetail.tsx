@@ -1,11 +1,11 @@
-import { Product, ProductCategory } from "@/@types/product";
+import { Product } from "@/@types/product";
 import Image from 'next/image';
 import { usePrices } from "../../hooks/use-prices";
-import { ProductCheckout } from "../../hooks/use-checkout";
+import { ProductCheckout } from  "@/@types/checkout";
 import { PriceQuantity } from "@/store/[storeSlug]/components/PriceQuantity";
 import React from "react";
 
-export const CartProductDetail = ({ product, updateCart }: { product: ProductCheckout, updateCart: Function }) => {
+export const CartProductDetail = ({ product, updateCart }: { product: ProductCheckout, updateCart: (product: Product, updateQuantity: number) => void }) => {
   const { getPriceById } = usePrices(product as Product);
   const price = getPriceById(product?.priceId);
   const [quantity, setQuantity] = React.useState(product.quantity);
@@ -17,20 +17,20 @@ export const CartProductDetail = ({ product, updateCart }: { product: ProductChe
     const updatedQuantity = quantity - 1;
     updateCart(product, updatedQuantity)
     setQuantity(updatedQuantity)
-  }, [product, quantity])
+  }, [product, quantity, updateCart])
 
   const handleOnAdd = React.useCallback(() => {
     const updatedQuantity = quantity + 1;
     updateCart(product, updatedQuantity);
     setQuantity(updatedQuantity)
 
-  }, [product, quantity])
+  }, [product, quantity, updateCart])
 
   return (
     <>
       <div className="flex gap-4">
         <div className="rounded-md">
-          <Image src={product?.images?.[0]?.path} width={200} height={600} className="rounded-lg" />
+          <Image src={product?.images?.[0]?.path} alt={product?.name} width={200} height={600} className="rounded-lg" />
         </div>
         <div className="mt-6 flex flex-col gap-2">
           <span className="text-md font-bold">

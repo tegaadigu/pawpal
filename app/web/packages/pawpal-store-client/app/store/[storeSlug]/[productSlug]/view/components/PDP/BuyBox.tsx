@@ -1,8 +1,8 @@
 import React from "react";
-import { Product, ProductPrice } from "@/@types/product";
+import { Product } from "@/@types/product";
 import StarRating from "@/store/[storeSlug]/components/StarRating";
 import Link from "next/link";
-import { Avatar, Button, IconButton, Input, Option, Select, Typography } from "@material-tailwind/react";
+import { Avatar, Button, Option, Select, Typography } from "@material-tailwind/react";
 import { Store } from "@/@types/store";
 import { useParams } from "next/navigation";
 import { useCheckoutContext } from "@/store/[storeSlug]/hooks/use-checkout";
@@ -15,6 +15,8 @@ export const BuyBox = ({ product, store }: { product: Product, store: Store }) =
   const { prices, selectedPrice, updateSelectedPrice } = usePrices(product);
   const [isAddingToCart, setIsAddingToCart] = React.useState(false)
   const { addToCart, items } = useCheckoutContext()
+
+  console.log('items in cart -->', items)
 
   const handleAddToCart = React.useCallback(async () => {
     setIsAddingToCart(true);

@@ -1,10 +1,9 @@
 import React from "react";
-import { Alert, Avatar, Button, Carousel, IconButton, Input, Option, Select, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import { useParams } from "next/navigation";
 import { useStore } from "@/store/[storeSlug]/hooks/use-store";
 import { useProduct } from "@/store/[storeSlug]/hooks/use-products";
-import { Product, ProductPrice } from "@/@types/product";
-import { useCheckoutContext } from "@/store/[storeSlug]/hooks/use-checkout";
+import { Product } from "@/@types/product";
 import { PDPCarousel } from "./PDPCarousel";
 import { BuyBox } from "./BuyBox";
 import { Reviews } from "./Reviews";
