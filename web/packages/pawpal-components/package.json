@@ -10,6 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "exports": {
+    "./": "./src/*",
+    "./components/*": "./src/components/*"
+  },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.1.0",
