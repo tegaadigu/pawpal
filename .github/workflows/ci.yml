@@ -29,7 +29,7 @@ jobs:
         run: rush install
 
       - name: lint
-        run: pnpm run lint
+        run: pnpm run lint:web
 
   build-web:
     runs-on: ubuntu-latest
@@ -56,4 +56,4 @@ jobs:
         run: rush install
 
       - name: Build affected packages
-        run: pnpm run build:frontend
+        run: pnpm run build:web
