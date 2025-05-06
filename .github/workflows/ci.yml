@@ -19,6 +19,11 @@ jobs:
           node-version: 20.14.0
           cache: 'pnpm'
       
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.4
+      
       - name: Install dependencies
         working-directory: ./web
         run: rush install --prefer-offline
@@ -40,6 +45,11 @@ jobs:
         with:
           node-version: 20.14.0
           cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.4
 
       - name: Install dependencies
         working-directory: ./web
