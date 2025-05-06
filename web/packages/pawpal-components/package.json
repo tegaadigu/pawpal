@@ -1,3 +1,6 @@
+// @todo Tega | Removed build job as this component uses vite and its meant to be just a component library
+// please remove vite and eventually hook it up to story book to serve as a full component library
+
 {
   "name": "@pawpal-web/components",
   "private": true,
@@ -6,7 +9,7 @@
   "main": "./dist/@pawpal-web-components.es.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "", 
     "lint": "eslint .",
     "preview": "vite preview"
   },
