@@ -7,9 +7,14 @@
   "type": "module",
   "license": "MIT",
   "private": false,
+  "exports": {
+    ".": "./src/*",
+    "./scripts/*": "./scripts/*"
+  },
   "scripts": {
-    "start": "nodemon src/index.js",
-    "migrate": "npx knex migrate:latest"
+    "start": "",
+    "migrate": "",
+    "update-env": "node ./scripts/create-env.js"
   },
   "dependencies": {
     "@fastify/cors": "^10.0.2",

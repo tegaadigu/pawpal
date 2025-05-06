@@ -39,13 +39,24 @@ Before installing pawpal - make sure you have the below installed
 ```bash
 # Clone the repo
 git clone https://github.com/tegaadigu/pawpal.git
-cd pawpal/App
-
+cd pawpal
 ```
+
+## 🧰 Backend / Microservices
+
+To get started with the microservice, ensure that your environment variable is configured using the example found in `.env.example` - otherwise run the below command to create a new `.env` from your `.env.example` file.
+
+***Note***: This action is not reversible, if you have already filled out your .env file skip this step.
+
+```bash
+# from the root folder
+pnpm run update-env:services
+```
+
 
 ## 🖥️ Web 
 
 
-## 🧰 Backend / Microservices
+
 
 ## 📱 Mobile (Todo)

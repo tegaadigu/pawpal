@@ -12,6 +12,17 @@
       "ignoreMissingScript": true,
       "allowWarningsInSuccessfulBuild": true,
       "incremental": true
+    }, {
+      "name": "update-env",
+      "commandKind": "bulk",
+      "summary": "Creates new .env",
+      "description": "Creates new .env from existing .env.example",
+      "safeForSimultaneousRushProcesses": true,
+      "enableParallelism": true,
+      "ignoreDependencyOrder": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "incremental": true
     }
   ],
   "parameters": [

@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:services": "cd services && rush start",
     "lint:services": "cd services && rush lint",
+    "update-env:services": "cd services && rush update-env",
     "lint:web": "cd web && rush lint",
     "build:web": "cd web && rush build",
     "test:web": "cd web && rush test"

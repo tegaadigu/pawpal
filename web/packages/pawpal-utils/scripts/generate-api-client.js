@@ -177,6 +177,7 @@ const writeApiClientToJsFile = async (apiClientJsContent) => {
     trailingComma: 'all',
   })
   const jsFilePath = path.join(__dirname, '../src/lib/api-client.js')
+  console.log('\n\njsFilePath ->', jsFilePath);
   await writeFile(jsFilePath, formattedFileContent, {
     encoding: 'utf-8',
   })
