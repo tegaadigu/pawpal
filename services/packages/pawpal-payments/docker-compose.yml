@@ -9,7 +9,7 @@ services:
       - ../../packages/pawpal-payments/./:/usr/src/app/packages/pawpal-payments
       - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
     ports:
-      - "${SERVICE_PORT:-3000}:3000"
+      - "${PORT:-3000}:${PORT:-3000}"
     depends_on:
       - db
     env_file: ../../packages/pawpal-payments/.env
@@ -20,7 +20,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
-    command: pnpm --filter ./packages/pawpal-payments docker:start
+    command: pnpm --filter ./packages/pawpal-payments start:api:docker
 
   db:
     image: postgres:latest

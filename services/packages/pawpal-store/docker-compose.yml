@@ -3,13 +3,13 @@ version: '3.8'
 services:
   app:
     build:
-      context: ../../
+      context: ../
       dockerfile: packages/pawpal-store/Dockerfile
     volumes:
       - ../../packages/pawpal-store/./:/usr/src/app/packages/pawpal-store
       - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
     ports:
-      - "${SERVICE_PORT:-3000}:3000"
+      - "${PORT:-3000}:${PORT:-3000}"
     depends_on:
       - db
     env_file: ../../packages/pawpal-store/.env
@@ -20,7 +20,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
-    command: pnpm --filter ./packages/pawpal-store docker:start
+    command: pnpm --filter ./packages/pawpal-store start:api:docker
 
   db:
     image: postgres:latest

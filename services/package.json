@@ -14,7 +14,9 @@
   "scripts": {
     "start": "rush start -p 10",
     "lint": "",
-    "update-env": "node ./packages/pawpal-shared/scripts/create-env.js"
+    "update-env": "node ./packages/pawpal-shared/scripts/create-env.js",
+    "docker:stop": "rush docker:stop -p 10",
+    "docker:start": "rush docker:start -p 10"
   },
   "packageManager": "pnpm@9.9.0+sha1.3edbe440f4e570aa8f049adbd06b9483d55cc2d2"
 }

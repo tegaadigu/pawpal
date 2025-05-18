@@ -2,17 +2,21 @@
   "name": "@pawpal-service/shared",
   "version": "1.0.0",
   "description": "Pawapl utilities for backend services",
-  "main": "src/index.js",
+  "main": "./src/index.js",
   "author": "Tega Adigu",
   "type": "module",
   "license": "MIT",
   "private": false,
   "exports": {
-    ".": "./src/*",
+    ".": "./src/index.js",
     "./scripts/*": "./scripts/*"
   },
   "scripts": {
     "start": "",
+    "stop": "",
+    "docker:start": "",
+    "docker:stop": "",
+    "start:api:docker": "",
     "migrate": "",
     "update-env": "node ./scripts/create-env.js"
   },

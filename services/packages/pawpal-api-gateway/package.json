@@ -10,7 +10,9 @@
   "scripts": {
     "compile": "tsc && copyfiles *.graphql dist/",
     "start": "pnpm run compile && node ./dist/index.js",
-    "docker:start": "pnpm install && nodemon --env-file=.env src/index.js"
+    "docker:stop": "",
+    "docker:start": "",
+    "start:api:docker": ""
   },
   "dependencies": {
     "@apollo/server": "^4.11.3",

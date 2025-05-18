@@ -9,27 +9,18 @@
   "private": false,
   "scripts": {
     "start": "nodemon --env-file=.env src/index.js",
-    "docker:start": "pnpm install && nodemon --env-file=.env src/index.js",
+    "docker:stop": "docker compose -f ./docker-compose.yml stop",
+    "docker:start": "docker compose -f ./docker-compose.yml up -d",
+    "start:api:docker": "pnpm install && nodemon --env-file=.env src/index.js",
     "migrate": "npx knex migrate:latest",
     "migration:create": "read -p 'Enter migration name: ' name && npx knex migrate:make \"$name\""
   },
   "dependencies": {
-    "@fastify/rate-limit": "^10.1.1",
-    "@fastify/swagger": "^9.2.0",
-    "@fastify/swagger-ui": "^5.1.0",
     "@pawpal-service/shared": "workspace:*",
     "ajv": "^8.17.1",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
-    "envalid": "^8.0.0",
-    "express": "^4.21.1",
-    "fastify": "^5.1.0",
-    "fastify-openapi-glue": "^4.7.1",
-    "fastify-plugin": "^5.0.1",
-    "knex": "^3.1.0",
-    "openapi-types": "^7.2.3",
-    "pg": "^8.13.1",
-    "swagger-jsdoc": "^6.2.8"
+    "knex": "^3.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

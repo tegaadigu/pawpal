@@ -28,9 +28,12 @@ const start = async () => {
       const hasEnvExample = await pathExists(envExamplePath)
       const hasExistingEnv = await pathExists(envPath)
       
-      if(hasExistingEnv || !hasEnvExample) { //Skip if already has a .env creatd.
+      if(!hasEnvExample) { //Skip if already has a .env creatd.
         console.log(`skipping - ${entry.path}/${entry.name}:${!hasEnvExample ? 'No .env.example file detected': '.env has already been created'}\n`)
         continue
+      }
+      if(hasExistingEnv) {
+        console.log(`overwriting - ${entry.path}/${entry.name}\n`)
       }
       copyFileSync(envExamplePath, path.resolve(entry.path, `${entry.name}/.env`))
       console.log(`successfully created .env for ${entry.name} \n\n`)

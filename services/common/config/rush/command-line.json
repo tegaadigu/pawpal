@@ -23,6 +23,30 @@
       "ignoreMissingScript": true,
       "allowWarningsInSuccessfulBuild": true,
       "incremental": true
+    },
+    {
+      "name": "docker:stop",
+      "commandKind": "bulk",
+      "summary": "Stops all services and their database",
+      "description": "Stops all services running on docker including their databases",
+      "safeForSimultaneousRushProcesses": true,
+      "enableParallelism": true,
+      "ignoreDependencyOrder": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "incremental": true
+    },
+    {
+      "name": "docker:start",
+      "commandKind": "bulk",
+      "summary": "starts all services and their database",
+      "description": "starts all services running on docker including their databases",
+      "safeForSimultaneousRushProcesses": true,
+      "enableParallelism": true,
+      "ignoreDependencyOrder": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "incremental": true
     }
   ],
   "parameters": [

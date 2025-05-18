@@ -41,15 +41,6 @@ importers:
 
   packages/pawpal-auth:
     dependencies:
-      '@fastify/rate-limit':
-        specifier: ^10.1.1
-        version: 10.2.2
-      '@fastify/swagger':
-        specifier: ^9.2.0
-        version: 9.4.2
-      '@fastify/swagger-ui':
-        specifier: ^5.1.0
-        version: 5.2.1
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
@@ -62,33 +53,9 @@ importers:
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
-      envalid:
-        specifier: ^8.0.0
-        version: 8.0.0
-      express:
-        specifier: ^4.21.1
-        version: 4.21.2
-      fastify:
-        specifier: ^5.1.0
-        version: 5.2.1
-      fastify-openapi-glue:
-        specifier: ^4.7.1
-        version: 4.8.0
-      fastify-plugin:
-        specifier: ^5.0.1
-        version: 5.0.1
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.1)
-      openapi-types:
-        specifier: ^7.2.3
-        version: 7.2.3
-      pg:
-        specifier: ^8.13.1
-        version: 8.13.1
-      swagger-jsdoc:
-        specifier: ^6.2.8
-        version: 6.2.8(openapi-types@7.2.3)
     devDependencies:
       nodemon:
         specifier: ^3.1.7
@@ -96,57 +63,15 @@ importers:
 
   packages/pawpal-orders:
     dependencies:
-      '@fastify/rate-limit':
-        specifier: ^10.1.1
-        version: 10.2.2
-      '@fastify/swagger':
-        specifier: ^9.2.0
-        version: 9.4.2
-      '@fastify/swagger-ui':
-        specifier: ^5.1.0
-        version: 5.2.1
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      bcrypt:
-        specifier: ^5.1.1
-        version: 5.1.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
-      envalid:
-        specifier: ^8.0.0
-        version: 8.0.0
-      express:
-        specifier: ^4.21.1
-        version: 4.21.2
-      fastify:
-        specifier: ^5.1.0
-        version: 5.2.1
-      fastify-openapi-glue:
-        specifier: ^4.7.1
-        version: 4.8.0
-      fastify-plugin:
-        specifier: ^5.0.1
-        version: 5.0.1
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.1)
-      node-fetch:
-        specifier: ^3.3.2
-        version: 3.3.2
-      openapi-types:
-        specifier: ^7.2.3
-        version: 7.2.3
-      pg:
-        specifier: ^8.13.1
-        version: 8.13.1
-      swagger-jsdoc:
-        specifier: ^6.2.8
-        version: 6.2.8(openapi-types@7.2.3)
     devDependencies:
       nodemon:
         specifier: ^3.1.7
@@ -154,57 +79,21 @@ importers:
 
   packages/pawpal-payments:
     dependencies:
-      '@fastify/rate-limit':
-        specifier: ^10.1.1
-        version: 10.2.2
-      '@fastify/swagger':
-        specifier: ^9.2.0
-        version: 9.4.2
-      '@fastify/swagger-ui':
-        specifier: ^5.1.0
-        version: 5.2.1
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
       bcrypt:
         specifier: ^5.1.1
         version: 5.1.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
-      envalid:
-        specifier: ^8.0.0
-        version: 8.0.0
-      express:
-        specifier: ^4.21.1
-        version: 4.21.2
-      fastify:
-        specifier: ^5.1.0
-        version: 5.2.1
-      fastify-openapi-glue:
-        specifier: ^4.7.1
-        version: 4.8.0
-      fastify-plugin:
-        specifier: ^5.0.1
-        version: 5.0.1
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.1)
-      openapi-types:
-        specifier: ^7.2.3
-        version: 7.2.3
-      pg:
-        specifier: ^8.13.1
-        version: 8.13.1
       stripe:
         specifier: ^17.7.0
         version: 17.7.0
-      swagger-jsdoc:
-        specifier: ^6.2.8
-        version: 6.2.8(openapi-types@7.2.3)
     devDependencies:
       nodemon:
         specifier: ^3.1.7
@@ -212,51 +101,18 @@ importers:
 
   packages/pawpal-places:
     dependencies:
-      '@fastify/rate-limit':
-        specifier: ^10.1.1
-        version: 10.2.2
-      '@fastify/swagger':
-        specifier: ^9.4.1
-        version: 9.4.2
-      '@fastify/swagger-ui':
-        specifier: ^5.1.0
-        version: 5.2.1
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
-      envalid:
-        specifier: ^8.0.0
-        version: 8.0.0
-      express:
-        specifier: ^4.21.1
-        version: 4.21.2
       fastify:
         specifier: ^5.1.0
         version: 5.2.1
-      fastify-openapi-glue:
-        specifier: ^4.7.1
-        version: 4.8.0
-      fastify-plugin:
-        specifier: ^5.0.1
-        version: 5.0.1
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.1)
-      openapi-types:
-        specifier: ^7.2.3
-        version: 7.2.3
-      pg:
-        specifier: ^8.13.1
-        version: 8.13.1
-      swagger-jsdoc:
-        specifier: ^6.2.8
-        version: 6.2.8(openapi-types@7.2.3)
     devDependencies:
       nodemon:
         specifier: ^3.1.7
@@ -325,54 +181,15 @@ importers:
 
   packages/pawpal-store:
     dependencies:
-      '@fastify/rate-limit':
-        specifier: ^10.1.1
-        version: 10.2.2
-      '@fastify/swagger':
-        specifier: ^9.2.0
-        version: 9.4.2
-      '@fastify/swagger-ui':
-        specifier: ^5.1.0
-        version: 5.2.1
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      bcrypt:
-        specifier: ^5.1.1
-        version: 5.1.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.7
-      envalid:
-        specifier: ^8.0.0
-        version: 8.0.0
-      express:
-        specifier: ^4.21.1
-        version: 4.21.2
-      fastify:
-        specifier: ^5.1.0
-        version: 5.2.1
-      fastify-openapi-glue:
-        specifier: ^4.7.1
-        version: 4.8.0
-      fastify-plugin:
-        specifier: ^5.0.1
-        version: 5.0.1
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.13.1)
-      openapi-types:
-        specifier: ^7.2.3
-        version: 7.2.3
-      pg:
-        specifier: ^8.13.1
-        version: 8.13.1
-      swagger-jsdoc:
-        specifier: ^6.2.8
-        version: 6.2.8(openapi-types@7.2.3)
     devDependencies:
       nodemon:
         specifier: ^3.1.7
