@@ -1,7 +1,7 @@
 import { createBrowserRouter, type RouteObject } from "react-router";
 import { TagIcon, HomeIcon, User2Icon, type LucideProps } from "lucide-react"
 
-import { Root } from "./components/root";
+import { Root } from "./pages/root";
 import { ErrorBoundary } from "./components/error-boundary";
 import { Home } from "./pages/home";
 import React from "react";
