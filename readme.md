@@ -36,6 +36,10 @@ Before installing pawpal - make sure you have the below installed
 
 2. docker - [container manger](https://docs.docker.com/compose/install/)
 
+3. Rush - [Mono repo version manager](https://rushjs.io/pages/intro/get_started/)
+
+4. pnpm - [Dependency manager](https://pnpm.io/installation)
+
 ```bash
 # Clone the repo
 git clone https://github.com/tegaadigu/pawpal.git
