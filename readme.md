@@ -50,7 +50,17 @@ To get started with the microservice, ensure that your environment variable is c
 
 ```bash
 # from the root folder
-pnpm run update-env:services
+# Install all micro-service dependencies
+pnpm run install:services:dependencies
+
+# Create .env file based on .env.example across micro-services.
+pnpm run update:services:env
+
+# Start all services with docker (datbase and micro-service)
+pnpm run start:services:docker
+
+# Run database migration for all micro services
+pnpm run migrate:services
 ```
 
 

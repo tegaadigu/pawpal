@@ -5,7 +5,7 @@ const utils = async (request) => {
   const { dbClient } = await createHandlerUtil(request);
   const { body } = request;
   const userDao = new UserDao(dbClient);
-  const sms = smsHandler();
+  // const sms = smsHandler();
 
   const generateLoginCode = () => {
     return Math.floor(100000 + Math.random() * 900000);

@@ -13,8 +13,8 @@ const utils = async (request) => {
 
   const registerUserWithPhoneNumber = async () => {
     const existingUser = await userDao.getUserByPhoneNumber(body?.phoneNumber);
-    if (!existingUser.length) {
-      const user = await userDao.saveUser({
+    if (!existingUser?.length) {
+      const user = await userDao.save({
         phone_number: body?.phoneNumber
       });
       return user;
@@ -24,8 +24,8 @@ const utils = async (request) => {
 
   const registerEmailAndPassword = async () => {
     const existingUser = await userDao.getUserByEmail(body?.email);
-    if (!existingUser.length) {
-      const user = await userDao.saveUser({
+    if (!existingUser?.length) {
+      const user = await userDao.save({
         email: body?.email,
         phone_number: body?.phoneNumber,
         password: body?.password

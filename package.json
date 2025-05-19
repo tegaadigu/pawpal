@@ -8,8 +8,11 @@
     "start:services": "cd services && rush start",
     "stop:services": "cd services && rush stop",
     "start:services:docker": "cd services && rush docker:start",
+    "install:services:dependencies": "cd services && rush update",
+    "stop:services:docker": "cd services && rush docker:stop",
+    "migrate:services": "cd services && rush migrate",
     "lint:services": "cd services && rush lint",
-    "update-env:services": "cd services && rush update-env",
+    "update:services:env": "cd services && rush update-env",
     "lint:web": "cd web && rush lint",
     "build:web": "cd web && rush build",
     "test:web": "cd web && rush test"

@@ -27,7 +27,6 @@ export const createNewProduct = async (request) => {
       store_location_id
     })
 
-    dbClient.release();
     return product;
   } catch (e) {
     throw e;

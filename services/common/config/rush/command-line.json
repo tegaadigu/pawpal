@@ -47,6 +47,18 @@
       "ignoreMissingScript": true,
       "allowWarningsInSuccessfulBuild": true,
       "incremental": true
+    },
+    {
+      "name": "migrate",
+      "commandKind": "bulk",
+      "summary": "Run database migration using knex",
+      "description": "Run database migration using knex",
+      "safeForSimultaneousRushProcesses": true,
+      "enableParallelism": true,
+      "ignoreDependencyOrder": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "incremental": true
     }
   ],
   "parameters": [

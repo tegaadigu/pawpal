@@ -6,7 +6,7 @@ services:
       context: ../
       dockerfile: packages/pawpal-store/Dockerfile
     volumes:
-      - ../../packages/pawpal-store/./:/usr/src/app/packages/pawpal-store
+      - ../../packages/pawpal-store/src/./:/usr/src/app/packages/pawpal-store/src
       - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
