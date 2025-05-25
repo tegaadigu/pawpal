@@ -1,0 +1,20 @@
+components:
+  schemas:
+    userAccount:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        postal_code:
+          type: string
+        country: 
+          type: string
+          

@@ -15,12 +15,21 @@ export class UserDao {
     return user.rows?.[0];
   }
 
+  /**
+   * @param {string} email 
+   * @returns 
+   */
   async getUserByEmail(email){
+    console.log('getUser by Email --->', email )
     const query = {
       text: "Select u.id, u.phone_number, u.role, to_jsonb(a) as account from public.users as u LEFT JOIN user_account as a ON a.user_id = u.id where email = $1",
       values: [email]
     }
+    console.log('query ', query)
+
     const user = await this.dbClient.query(query);
+
+    console.log('user -->', user)
     return user?.rows?.[0];
   }
   async save(params) {

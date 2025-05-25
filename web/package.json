@@ -15,7 +15,8 @@
   "scripts": {
     "build": "rush build -p 10",
     "lint": "rush lint -p 10",
-    "test": "rush test -p 10"
+    "test": "rush test -p 10",
+    "api-client:generate": "cd ./packages/pawpal-utils && pnpm run api-client:generate"
   },
   "packageManager": "pnpm@9.9.0+sha1.3edbe440f4e570aa8f049adbd06b9483d55cc2d2"
 }

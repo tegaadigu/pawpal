@@ -5,6 +5,8 @@ services:
     build:
       context: ../../
       dockerfile: packages/pawpal-auth/Dockerfile
+    networks:
+      - pawpal-net
     volumes:
       - ../../packages/pawpal-auth/src/./:/usr/src/app/packages/pawpal-auth/src
       - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
@@ -26,6 +28,8 @@ services:
     image: postgres:latest
     restart: always
     env_file: .env
+    networks:
+      - pawpal-net
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -34,22 +38,7 @@ services:
       - "${DB_PORT:-5432}:5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-
-  rabbitmq:
-    image: rabbitmq:latest
-    ports:
-      - ${RABBITMQ_PORT:-5672}:5672
-      - ${RABBITMQ_UI_PORT-15672:15672}
-    environment: 
-      RABBITMQ_DEFAULT_USER: guest # Default username (change in production)
-      RABBITMQ_DEFAULT_PASS: guest # Default password (change in production)
-      RABBITMQ_ERLANG_COOKIE: secretcookie
-    volumes:
-      - ./rabbitmq-data:/var/lib/rabbitmq
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
     
-      
+networks:
+  pawpal-net:
+    external: true

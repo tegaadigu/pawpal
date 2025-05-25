@@ -36,6 +36,10 @@ Before installing pawpal - make sure you have the below installed
 
 2. docker - [container manger](https://docs.docker.com/compose/install/)
 
+3. Rush - [Mono repo version manager](https://rushjs.io/pages/intro/get_started/)
+
+4. pnpm - [Dependency manager](https://pnpm.io/installation)
+
 ```bash
 # Clone the repo
 git clone https://github.com/tegaadigu/pawpal.git
@@ -55,6 +59,17 @@ pnpm run install:services:dependencies
 
 # Create .env file based on .env.example across micro-services.
 pnpm run update:services:env
+
+# Note: The pawpal services uses a pub/sub mechanism for distributing event across micro-services - you need to first create a shared docker network for containers to have access to kafka.
+
+docker network create pawpal-net
+
+# Verify that the network has been created
+
+docker network ls | grep pawpal-net
+
+# you should see something similar to 
+# b14543fb71c5   pawpal-net                bridge    local
 
 # Start all services with docker (datbase and micro-service)
 pnpm run start:services:docker

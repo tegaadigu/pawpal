@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build:
-      context: ../
+      context: ../../
       dockerfile: packages/pawpal-store/Dockerfile
     volumes:
       - ../../packages/pawpal-store/src/./:/usr/src/app/packages/pawpal-store/src

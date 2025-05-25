@@ -11,11 +11,27 @@ export const getApiClientJSContent = (apiClient) => {
     }
   }
   return `
+
+  // @ts-nocheck
+
   /**
   @@@@@ Please do not overrite this file - this was automatically created using pnpm run api-client:generate @@@@@@
   @@@@ maintainer: Tega Adigu @@@@@ 
   ----------------------------------------
   */
+
+  export class ApiError extends Error {
+      /**
+       * @param {string} message
+       * @param {number} statusCode 
+       */
+    constructor(message, statusCode) {
+      super(message)
+      this.name = "ApiError"
+      this.statusCode = statusCode || 500
+      Error.captureStackTrace(this, this.constructor)
+    }
+  }
 
   
   export class ApiClient {
@@ -25,7 +41,6 @@ export const getApiClientJSContent = (apiClient) => {
     
       /**
        * @param {${keys.map(key => `{ ${key}: { url: string}}`)}} [services]
-       * @param {string} refreshTokenUrl
        */
       constructor(services = null) {
         this.services = services || ${JSON.stringify(serviceUrls)}
@@ -95,6 +110,7 @@ export const getApiClientJSContent = (apiClient) => {
        * _fetch helper
        * @param {string} url
        * @param {RequestInit} args
+       * @throws {ApiError | Error}
        */
       _fetch = async (url, args) => {
         try {
@@ -106,7 +122,13 @@ export const getApiClientJSContent = (apiClient) => {
         if (response.headers.get('X-Refresh-Token')) {
             await this._handleRefreshToken()
           }
-          return await response.json()
+
+          const responseData = await response.json();
+          if(response.ok) {
+            return responseData
+          }
+
+          throw new ApiError(responseData.message, response.status)
         } catch (error) {
           console.error(error)
           throw error

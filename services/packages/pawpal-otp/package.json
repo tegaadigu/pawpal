@@ -1,0 +1,28 @@
+{
+  "name": "@pawpal-service/otp",
+  "version": "1.0.0",
+  "description": "One time password manager - generates and handle OTP authentication",
+  "main": "index.js",
+  "author": "Tega Adigu",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "nodemon --env-file=.env src/index.js",
+    "docker:stop": "docker compose -f ./docker-compose.yml stop",
+    "docker:start": "docker compose -f ./docker-compose.yml up -d --build",
+    "start:api:docker": "pnpm install && nodemon --env-file=.env src/index.js",
+    "migrate": "npx knex migrate:latest",
+    "migration:create": "read -p 'Enter migration name: ' name && npx knex migrate:make \"$name\""
+  },
+  "dependencies": {
+    "@pawpal-service/shared": "workspace:*",
+    "ajv": "^8.17.1",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "knex": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
