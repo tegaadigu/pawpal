@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
+// @todo eventually fix issue with RouteObject and Route consolidation for Component type.
 
 import { createBrowserRouter, type RouteObject } from "react-router";
 import { TagIcon, HomeIcon, User2Icon, type LucideProps } from "lucide-react"
