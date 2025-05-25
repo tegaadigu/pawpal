@@ -4,6 +4,19 @@
   ----------------------------------------
   */
 
+class ApiError extends Error {
+  /**
+   * @param {string} message
+   * @param {number} statusCode
+   */
+  constructor(message, statusCode) {
+    super(message)
+    this.name = 'ApiError'
+    this.statusCode = statusCode || 500
+    Error.captureStackTrace(this, this.constructor)
+  }
+}
+
 export class ApiClient {
   headers = {
     'Content-Type': 'application/json',
@@ -86,6 +99,7 @@ export class ApiClient {
    * _fetch helper
    * @param {string} url
    * @param {RequestInit} args
+   * @throws {ApiError | Error}
    */
   _fetch = async (url, args) => {
     try {
@@ -97,7 +111,13 @@ export class ApiClient {
       if (response.headers.get('X-Refresh-Token')) {
         await this._handleRefreshToken()
       }
-      return await response.json()
+
+      const responseData = await response.json()
+      if (response.ok) {
+        return responseData
+      }
+
+      throw new ApiError(responseData.message, response.status)
     } catch (error) {
       console.error(error)
       throw error

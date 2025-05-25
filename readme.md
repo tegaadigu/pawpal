@@ -60,6 +60,17 @@ pnpm run install:services:dependencies
 # Create .env file based on .env.example across micro-services.
 pnpm run update:services:env
 
+# Note: The pawpal services uses a pub/sub mechanism for distributing event across micro-services - you need to first create a shared docker network for containers to have access to kafka.
+
+docker network create pawpal-net
+
+# Verify that the network has been created
+
+docker network ls | grep pawpal-net
+
+# you should see something similar to 
+# b14543fb71c5   pawpal-net                bridge    local
+
 # Start all services with docker (datbase and micro-service)
 pnpm run start:services:docker
 

@@ -1,7 +1,48 @@
+import { apiClient } from '@/lib/api-client'
+import { useMutation } from '@tanstack/react-query'
 import React from 'react'
 
-export const useAuth = () => {
+interface LoginData {
+  email?: string
+  password?: string
+  phoneNumber?: string
+}
+
+interface Auth {
+  onLoginError?: (e: Error) => void,
+  onLoginSuccess?: (data: unknown) => void,
+}
+
+const useHandleLogin = ({ onLoginError, onLoginSuccess }: Auth) => {
+  return useMutation({
+    mutationFn: async (data: LoginData) => {
+      const response = await apiClient.auth.login({
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+
+      console.log('response -->', response)
+      return response;
+    },
+    onSuccess: (responseData: unknown) => {
+      if(onLoginSuccess) {
+        onLoginSuccess(responseData)
+      }
+    },
+    onError: (e) => {
+      if(onLoginError) {
+        onLoginError(e)
+      }
+    }
+  })
+}
+
+export const useAuth = ({ onLoginError, onLoginSuccess }: Auth) => {
   const token = localStorage.getItem('token')
+  const { mutate } = useHandleLogin({ onLoginSuccess, onLoginError})
 
   const logOut = React.useCallback(() => {
     localStorage.removeItem('token')
@@ -19,5 +60,6 @@ export const useAuth = () => {
     return JSON.parse(user || '{}')
   }, [])
 
-  return { isLoggedIn: !!token, logOut, saveUser, getLoggedInUser }
+
+  return { isLoggedIn: !!token, logOut, saveUser, getLoggedInUser, handleLogin: mutate }
 }

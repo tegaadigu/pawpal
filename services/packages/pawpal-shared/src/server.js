@@ -10,6 +10,7 @@ import { cleanEnv, str, num } from 'envalid';
 import { readdirSync } from 'fs';
 import { readFile } from 'fs/promises';
 import db from "./db.js";
+import pubSubPlugin from './pub-sub-handler.js'
 
 // Read Environment Variables
 const env = cleanEnv(process.env, {
@@ -94,7 +95,8 @@ const configureRoutes = async () => {
 
 // Derive from some env variable or secrets.
 const allowedOrigins = [
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'http://localhost:5173'
 ]
 
 const registerCors = async () => {
@@ -135,6 +137,31 @@ const configureDB = async () => {
   })
 }
 
+/**
+ * 
+ * @typedef {Object} PubSubOptions
+ * @property {Array<string} [PubSubOptions.brokers] 
+ * @property {string} [PubSubOptions.clientId]
+ * @property {string} [PubSubOptions.consumerGroupId]
+ * @property {string} [PubSubOptions.consumerTopic]
+ * @property {function} PubSubOptions.onMessage
+ */
+
+
+/**
+ * 
+ * @param {PubSubOptions} pubSubOptions 
+ */
+const configurePubSub = async (pubSubOptions) => {
+  app.register(pubSubPlugin, {
+    brokers: pubSubOptions?.brokers || ['localhost:9092'],
+    clientId: pubSubOptions?.clientId || 'pawpal-app',
+    consumerGroupId: pubSubOptions?.consumerGroupId,
+    consumerTopic: pubSubOptions?.consumerTopic,
+    onMessage: pubSubOptions?.onMessage,
+  })
+}
+
 const startApp = async () => {
   try {
     await app.listen({ port: env.PORT, host: env.HOST })
@@ -145,9 +172,15 @@ const startApp = async () => {
   }
 };
 
-const start = async () => {
+/**
+ * 
+ * @param {Object} options
+ * @param {PubSubOptions} [options.pubSub]
+ */
+const start = async (options) => {
   await configureRoutes()
   await configureDB()
+  await configurePubSub(options?.pubSub || {})
   registerShutdownHooks();
   await registerCors();
   await startApp()
