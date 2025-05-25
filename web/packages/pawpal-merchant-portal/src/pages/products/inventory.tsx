@@ -5,3 +5,5 @@ export const ProductInventory = () => {
     </div>
   )
 }
+
+export default ProductInventory

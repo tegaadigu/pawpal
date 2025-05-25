@@ -31,3 +31,5 @@ export const ErrorBoundary = () => {
     </div>
   )
 }
+
+export default ErrorBoundary

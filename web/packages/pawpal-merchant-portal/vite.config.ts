@@ -13,5 +13,16 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, './src')
     }
-  }
+  },
+  build: {
+    chunkSizeWarningLimit: 1000, 
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router'],
+        },
+      },
+    },
+  },
 })
