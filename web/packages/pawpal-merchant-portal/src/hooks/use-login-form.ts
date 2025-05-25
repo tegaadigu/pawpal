@@ -1,8 +1,9 @@
+import type { ApiError } from "@pawpal-web/utils/lib/api-client.js"
 import React from "react"
 
 interface LoginFormResponse {
   onLoginSuccess: (data: unknown) => void,
-  onLoginError: (e: Error) => void,
+  onLoginError: (e: ApiError) => void,
   error: string
 }
 export const useLoginForm = (): LoginFormResponse => {
@@ -13,8 +14,8 @@ export const useLoginForm = (): LoginFormResponse => {
         }
     }, [error, setError]) 
   
-    const onLoginError = React.useCallback((e: Error) => {
-      console.log('e -->', e)
+    const onLoginError = React.useCallback((e: ApiError) => {
+      if(e.statusCode)
       setError(e.message)
     }, [setError])
 

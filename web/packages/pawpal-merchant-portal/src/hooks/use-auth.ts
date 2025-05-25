@@ -1,4 +1,5 @@
 import { apiClient } from '@/lib/api-client'
+import { ApiError } from '@pawpal-web/utils/lib/api-client.js'
 import { useMutation } from '@tanstack/react-query'
 import React from 'react'
 
@@ -9,7 +10,7 @@ interface LoginData {
 }
 
 interface Auth {
-  onLoginError?: (e: Error) => void,
+  onLoginError?: (e: ApiError) => void,
   onLoginSuccess?: (data: unknown) => void,
 }
 
@@ -33,14 +34,14 @@ const useHandleLogin = ({ onLoginError, onLoginSuccess }: Auth) => {
       }
     },
     onError: (e) => {
-      if(onLoginError) {
+      if(onLoginError && e instanceof ApiError) {
         onLoginError(e)
       }
     }
   })
 }
 
-export const useAuth = ({ onLoginError, onLoginSuccess }: Auth) => {
+export const useAuth = ({ onLoginError, onLoginSuccess }: Auth = {}) => {
   const token = localStorage.getItem('token')
   const { mutate } = useHandleLogin({ onLoginSuccess, onLoginError})
 

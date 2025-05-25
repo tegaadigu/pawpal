@@ -11,13 +11,16 @@ export const getApiClientJSContent = (apiClient) => {
     }
   }
   return `
+
+  // @ts-nocheck
+
   /**
   @@@@@ Please do not overrite this file - this was automatically created using pnpm run api-client:generate @@@@@@
   @@@@ maintainer: Tega Adigu @@@@@ 
   ----------------------------------------
   */
 
-  class ApiError extends Error {
+  export class ApiError extends Error {
       /**
        * @param {string} message
        * @param {number} statusCode 
@@ -38,7 +41,6 @@ export const getApiClientJSContent = (apiClient) => {
     
       /**
        * @param {${keys.map(key => `{ ${key}: { url: string}}`)}} [services]
-       * @param {string} refreshTokenUrl
        */
       constructor(services = null) {
         this.services = services || ${JSON.stringify(serviceUrls)}
