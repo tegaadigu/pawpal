@@ -20,7 +20,7 @@ services:
       - --kafka-addr
       - PLAINTEXT://0.0.0.0:9092
       - --advertise-kafka-addr
-      - PLAINTEXT://localhost:9092
+      - PLAINTEXT://redpanda:9092
     ports:
       - "9092:9092"  # Kafka API
       - "9644:9644"  # Admin API

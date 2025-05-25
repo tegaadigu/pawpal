@@ -10,7 +10,7 @@ import { cleanEnv, str, num } from 'envalid';
 import { readdirSync } from 'fs';
 import { readFile } from 'fs/promises';
 import db from "./db.js";
-import pubSubPlugin from './pub-sub-handler.js'
+import pubSubPlugin from "./pub-sub-handler/pub-sub-handler.js"
 
 // Read Environment Variables
 const env = cleanEnv(process.env, {
@@ -153,13 +153,16 @@ const configureDB = async () => {
  * @param {PubSubOptions} pubSubOptions 
  */
 const configurePubSub = async (pubSubOptions) => {
-  app.register(pubSubPlugin, {
+  const options = {
     brokers: pubSubOptions?.brokers || ['localhost:9092'],
     clientId: pubSubOptions?.clientId || 'pawpal-app',
     consumerGroupId: pubSubOptions?.consumerGroupId,
     consumerTopic: pubSubOptions?.consumerTopic,
     onMessage: pubSubOptions?.onMessage,
-  })
+  }
+
+  console.log('options ins erver ---->', options)
+  app.register(pubSubPlugin, options)
 }
 
 const startApp = async () => {

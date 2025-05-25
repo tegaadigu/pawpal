@@ -16,6 +16,8 @@ const getDbInstance = (options) => {
       dbname,
       password
     } = options;
+
+    console.log('dbOptions ---->', { options })
     try {
       pool = new Pool({
         host,

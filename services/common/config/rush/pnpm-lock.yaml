@@ -46,6 +46,28 @@ importers:
         specifier: ^3.1.7
         version: 3.1.10
 
+  ../../packages/pawpal-otp:
+    dependencies:
+      '@pawpal-service/shared':
+        specifier: workspace:*
+        version: link:../pawpal-shared
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.5.0
+      knex:
+        specifier: ^3.1.0
+        version: 3.1.0(pg@8.16.0)
+    devDependencies:
+      nodemon:
+        specifier: ^3.1.7
+        version: 3.1.10
+
   ../../packages/pawpal-payments:
     dependencies:
       '@pawpal-service/shared':
@@ -128,6 +150,9 @@ importers:
       fastify-plugin:
         specifier: ^5.0.1
         version: 5.0.1
+      kafkajs:
+        specifier: ^2.2.4
+        version: 2.2.4
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.16.0)
@@ -1399,6 +1424,11 @@ packages:
 
   /json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+    dev: false
+
+  /kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
     dev: false
 
   /knex@3.1.0(pg@8.16.0):

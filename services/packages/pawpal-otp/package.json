@@ -1,7 +1,7 @@
 {
-  "name": "@pawpal-service/auth",
+  "name": "@pawpal-service/otp",
   "version": "1.0.0",
-  "description": "Service for authorization and authentication of pawpal users",
+  "description": "One time password manager - generates and handle OTP authentication",
   "main": "index.js",
   "author": "Tega Adigu",
   "type": "module",

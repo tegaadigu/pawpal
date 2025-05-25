@@ -1,7 +1,7 @@
 import UserDao from "../../dao/users.dao.js";
 import { logError } from "../../utils/logger.js";
 import utils from "./util.js"
-import { PUB_SUB_TOPICS } from "@pawpal-service/shared"
+import { UserNotFoundError } from "@pawpal-service/shared"
 
 const loginWithPhone = async (phoneNumber, userDao) => {
   const user = await userDao.getUserByPhoneNumber(phoneNumber);
@@ -21,31 +21,19 @@ const loginWithPhone = async (phoneNumber, userDao) => {
 const loginWithEmail = async (email, userDao, pubSubProducer) => {
   const user = await userDao.getUserByEmail(email);
 
-  console.log('user login with email --->', user)
-
   if(!user) {
     throw new UserNotFoundError()
   }
 
   if(user) {
-    // Push otp job to pub sub
     await pubSubProducer.send({
-      topic: PUB_SUB_TOPICS.OTP_EVENTS.topic,
-      type: PUB_SUB_TOPICS.OTP_EVENTS.TYPES.LOGIN,
+      topic: "send-otp-email",
       messages: [{
-        value: JSON.stringify({ 
-          data: {
-            user: {
-              email: user.email, 
-              id: user.id, 
-              name: user?.account?.first_name || '',
-            }
-          },
-          type: PUB_SUB_TOPICS.OTP_EVENTS.TYPES.LOGIN,
-         })
+        value: JSON.stringify({ email: user.email, id: user.id, name: user?.account?.first_name || ''  })
       }]
     })
   }
+  console.log('user derived -->', user, pubSubProducer)
 }
 
 export const performLogin = async (request) => {
