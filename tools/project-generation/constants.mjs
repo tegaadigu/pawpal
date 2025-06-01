@@ -11,3 +11,8 @@ export const PATHS = Object.freeze({
 })
 
 export const DEFAULT_PREFIX = 'pawpal-'
+
+export const BACKEND_SERVICE_TYPES = Object.freeze({
+  RESTFUL: 'restful',
+  EVENT_DRIVEN: 'event-driven'
+})

@@ -68,6 +68,28 @@ importers:
         specifier: ^3.1.7
         version: 3.1.10
 
+  ../../packages/pawpal-otp-2:
+    dependencies:
+      '@pawpal-service/shared':
+        specifier: workspace:*
+        version: link:../pawpal-shared
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.5.0
+      knex:
+        specifier: ^3.1.0
+        version: 3.1.0(pg@8.16.0)
+    devDependencies:
+      nodemon:
+        specifier: ^3.1.7
+        version: 3.1.10
+
   ../../packages/pawpal-payments:
     dependencies:
       '@pawpal-service/shared':
@@ -231,7 +253,7 @@ packages:
     resolution: {integrity: sha512-Rkiu/8wIjpsf46Rr+Fitd3HRP+VsxUFDDeag0hs9L0ksfnwx2g7SPQQTFL0E8Qv+rfXzQOxBJnjUB9ITUDjfWQ==}
     dependencies:
       ajv: 8.17.1
-      ajv-formats: 3.0.1(ajv@8.17.1)
+      ajv-formats: 3.0.1
       fast-uri: 3.0.6
     dev: false
 
@@ -365,7 +387,7 @@ packages:
     dependencies:
       ajv: 8.17.1
       ajv-draft-04: 1.0.0(ajv@8.17.1)
-      ajv-formats: 3.0.1(ajv@8.17.1)
+      ajv-formats: 3.0.1
       js-yaml: 4.1.0
     dev: false
 
@@ -415,13 +437,8 @@ packages:
       ajv: 8.17.1
     dev: false
 
-  /ajv-formats@3.0.1(ajv@8.17.1):
+  /ajv-formats@3.0.1:
     resolution: {integrity: sha512-8iUql50EUR+uUcdRQ3HDqa6EVyo3docL8g5WJ3FNcWmu62IbkGUue/pEyLBW8VGKKucTPgqeks4fIU1DA4yowQ==}
-    peerDependencies:
-      ajv: ^8.0.0
-    peerDependenciesMeta:
-      ajv:
-        optional: true
     dependencies:
       ajv: 8.17.1
     dev: false
@@ -955,7 +972,7 @@ packages:
     dependencies:
       '@fastify/merge-json-schemas': 0.2.1
       ajv: 8.17.1
-      ajv-formats: 3.0.1(ajv@8.17.1)
+      ajv-formats: 3.0.1
       fast-uri: 3.0.6
       json-schema-ref-resolver: 2.0.1
       rfdc: 1.4.1

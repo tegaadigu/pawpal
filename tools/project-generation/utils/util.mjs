@@ -1,10 +1,11 @@
 
 import fs from 'fs';
 import path from 'path';
-import { PATHS, PROJECT_TYPE } from '../constants.mjs';
-import { parse, stringify } from 'yaml';
+import { DEFAULT_PREFIX, PATHS, PROJECT_TYPE } from '../constants.mjs';
+import { parse } from 'yaml';
 import { logger } from '../lib/logger.mjs';
 import { cp, writeFile, readFile } from 'fs/promises';
+import stripJsonComments from 'strip-json-comments';
 
 /**
  * 
@@ -13,7 +14,7 @@ import { cp, writeFile, readFile } from 'fs/promises';
  * @param {string} prefix 
  * @returns {string}
  */
-export const getTargetDir = (project_path, project_name, prefix = 'pawpal-') => {
+export const getTargetDir = (project_path, project_name, prefix = DEFAULT_PREFIX) => {
   return path.resolve(process.cwd(), `${project_path}/${prefix}${project_name}`)
 }
 
@@ -92,46 +93,30 @@ export const copyProjectTemplate = async (templatePath, targetPath) => {
   }
 }
 
-// ------------ Backend Proejct Handler Utils ----------------
-
-export const addBackendRouteToOpenApi = async (projectName) => {
-  try {
-    const rootpOpenApiPath = path.resolve(process.cwd(), `openapi/openapi.yml`);
-    logger.info(`Updating openapi.yml file with backend route`)
-    const content = await readYamlFile(rootpOpenApiPath)
-    content.paths = { ...content.paths, ...{[`/${projectName}/`]: {'$ref': `../projects/${projectName}/openapi/index.yml`}}}
-    const updatedOpenApi = stringify(content);
-    await writeFile(rootpOpenApiPath, updatedOpenApi, 'utf8');
-  }catch(e) {
-    logger.error(`message: ${e.message}  stack: ${e.stack}`)
-    throw e;
-  }
+/**
+ * @param {string} jsonPath 
+ * @returns {Object} 
+ */
+export const readJsonConfigFIleContent = async (jsonPath) => {
+  logger.info(`reading json file from: ${jsonPath}`)
+  const packageJsonData = await readFile(jsonPath, 'utf-8');
+  const packageJson = JSON.parse(stripJsonComments(packageJsonData));
+  return packageJson
 }
 
-export const updateOpenApiControllerPath = async (projectName, projectPath) => {
-  try {
-    const rootpOpenApiPath = path.resolve(projectPath, `openapi/index.yml`);
-    logger.info(`updating path to controller`)
-    let content = await readYamlFile(rootpOpenApiPath)
-    content = { ...content, 'x-swagger-router-controller-folder': `projects/${projectName}/controllers`}
-    const updatedOpenApi = stringify(content);
-    await writeFile(rootpOpenApiPath, updatedOpenApi, 'utf8');
-  }catch(e) {
-    console.log('error has happened --->', e);
-    logger.error(`message: ${e.message}  stack: ${e.stack}`)
-    throw e;
-  }
-}
-
-// ---- Frontend Project Handler Utils ---------
-
+/**
+ * @param {string} projectPath 
+ * @param {{
+ *    name: string,
+ *    description: string,
+ *    version: string
+ * }} params 
+ */
 export const updatePackageJson = async (projectPath, params) => {
   try {
     logger.info(`updating package.json with project info..`)
-    const packageJsonPath = path.join(projectPath, 'package.json');
-    const packageJsonData = await readFile(packageJsonPath, 'utf-8');
-    const packageJson = JSON.parse(packageJsonData);
-
+    const packageJsonPath = path.join(projectPath, 'package.json')
+    const packageJson = await readJsonConfigFIleContent(packageJsonPath)
 
     // Update package json params. e.g name, version e.t.c.
     Object.keys(params).forEach((key) => {
@@ -146,6 +131,31 @@ export const updatePackageJson = async (projectPath, params) => {
     logger.error(`message: ${error.message}  stack: ${error.stack}`)
   }
 };
+
+/**
+ * @param {string} servicePath
+ * @param {Object} params 
+ */
+export const updateRush = async (servicePath, params) => {
+  try {
+    console.log('rush params to update -->', params)
+    logger.info(`Adding project configuration to rush config`)
+    const rushConfigPath = path.join(servicePath, 'rush.json')
+    const jsonContent = readJsonConfigFIleContent(rushConfigPath)
+    Object.keys(params).forEach((key) => {
+      const value = params[key]
+      jsonContent[key] = value;
+    })
+
+    console.log('\n\n\n\nwriting... config to update -->', jsonContent)
+
+    await writeFile(rushConfigPath, JSON.stringify(jsonContent, null, 2));
+    logger.info(`Updated rush.json`)
+  }catch(error) {
+    console.log('error ->', error);
+    logger.error(`message: ${error.message}  stack: ${error.stack}`)
+  }
+}
 
 export const updateFrontendDetails = async (projectPath, projectName) => {
   await updatePackageJson(projectPath, {

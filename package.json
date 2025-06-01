@@ -24,7 +24,9 @@
   "license": "ISC",
   "dependencies": {
     "bunyan": "^1.8.15",
+    "dotenv": "^16.5.0",
     "inquirer": "^12.6.3",
+    "strip-json-comments": "^5.0.2",
     "yaml": "^2.8.0"
   }
 }
