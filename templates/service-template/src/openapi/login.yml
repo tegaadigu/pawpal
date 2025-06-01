@@ -1,0 +1,20 @@
+paths:
+  /api/v1/hello:
+    get:
+      summary: Simple Endpoint for greeting hello world
+      description: Greet user
+      operationId: hello
+      tags:
+        - greetings
+        - hello
+      responses:
+        '200':
+          description: A greeting message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                additionalProperties: true

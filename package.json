@@ -2,6 +2,7 @@
   "name": "@pawpal-app",
   "version": "1.0.0",
   "description": "",
+  "module": "true",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,9 +16,15 @@
     "update:services:env": "cd services && rush update-env",
     "lint:web": "cd web && rush lint",
     "build:web": "cd web && rush build",
-    "test:web": "cd web && rush test"
+    "test:web": "cd web && rush test",
+    "create:service": "node ./tools/project-generation/create-project-tool.mjs"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "inquirer": "^12.6.3",
+    "yaml": "^2.8.0"
+  }
 }

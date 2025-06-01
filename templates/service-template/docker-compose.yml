@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: packages/pawpal-otp/Dockerfile
+    networks:
+      - pawpal-net
+    volumes:
+      - ../../packages/pawpal-otp/src/./:/usr/src/app/packages/pawpal-otp/src
+      - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    depends_on:
+      - db
+    env_file: ../../packages/pawpal-otp/.env
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+    command: pnpm --filter ./packages/pawpal-otp start:api:docker
+
+  db:
+    image: postgres:latest
+    restart: always
+    env_file: .env
+    networks:
+      - pawpal-net
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    
+networks:
+  pawpal-net:
+    external: true
