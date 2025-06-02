@@ -89,8 +89,19 @@ to create a new backend service run the below command from the root folder
 pnpm run create:service
  
 #follow the prompt.
-```
+# On success run the previous command for installing all micro-service dependencies
+pnpm run update:services:env
 
+# Install dependencies to update rush
+pnpm run install:services:dependencies
+
+
+# Start all services with docker (datbase and micro-service)
+pnpm run start:services:docker
+
+# This should include your new service.
+```
+***Note***: At the moment only restful service template is supported. Pending event-driven
 
 ## 🖥️ Web 
 

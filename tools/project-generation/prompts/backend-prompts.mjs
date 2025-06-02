@@ -93,11 +93,25 @@ const getPORTS = (portType) => {
 }
 
 /**
+ * @param {string} port_number 
+ * @returns {boolean}
+ */
+const isValidPortFormat = (port_number) => {
+  const portRefex = /^[1-9][0-9]{3}$/
+  return portRefex.test(port_number)
+}
+
+/**
  * @param {string} port_number format: 5001, 8080 
  * @returns {string|boolean}
  */
 export const validateDBPortNumber = (port_number) => {
   const portDictionary = getPORTS('DB_PORT')
+
+  if(!isValidPortFormat(port_number)) {
+    return `Invalid: port format, follow the existing format: [${Object.keys(portDictionary).toString()}]`
+  }
+
   if(portDictionary[port_number]) {
     const portDetail = portDictionary[port_number]
     return `Invalid: port number already used by ${portDetail?.PROJECT} try another port number not found here [${Object.keys(portDictionary).toString()}]`;
@@ -111,6 +125,11 @@ export const validateDBPortNumber = (port_number) => {
  */
 export const validateApplicationPortNumber = (port_number) => {
   const portDictionary = getPORTS('PORT')
+
+  if(!!isValidPortFormat(port_number)) {
+    return `Invalid: port format, follow the existing format: [${Object.keys(portDictionary).toString()}]`
+  }
+
   if(portDictionary[port_number]) {
     const portDetail = portDictionary[port_number]
     return `Invalid: port number already used by ${portDetail?.PROJECT} try another port number not found here [${Object.keys(portDictionary).toString()}]`;
