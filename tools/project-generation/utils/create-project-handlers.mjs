@@ -56,7 +56,7 @@ export const createBackendProject = async(project_options) => {
     })
     // Configure Project docker file. docker-compose - and .env based on project options.
     await configureBackendProject(targetPath, project_options)
-    logger.info(`Successfully created Backend Project..`);
+    logger.info(`Successfully created Backend Project. in: ${targetPath}`);
   } catch(e) {
     logger.error(`Failed to create project! error: ${e.message}, stack: ${e.stack}`)
   }

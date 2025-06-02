@@ -68,28 +68,6 @@ importers:
         specifier: ^3.1.7
         version: 3.1.10
 
-  ../../packages/pawpal-otp-2:
-    dependencies:
-      '@pawpal-service/shared':
-        specifier: workspace:*
-        version: link:../pawpal-shared
-      ajv:
-        specifier: ^8.17.1
-        version: 8.17.1
-      bcrypt:
-        specifier: ^5.1.1
-        version: 5.1.1
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.5.0
-      knex:
-        specifier: ^3.1.0
-        version: 3.1.0(pg@8.16.0)
-    devDependencies:
-      nodemon:
-        specifier: ^3.1.7
-        version: 3.1.10
-
   ../../packages/pawpal-payments:
     dependencies:
       '@pawpal-service/shared':
@@ -200,6 +178,28 @@ importers:
       '@pawpal-service/shared':
         specifier: workspace:*
         version: link:../pawpal-shared
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.5.0
+      knex:
+        specifier: ^3.1.0
+        version: 3.1.0(pg@8.16.0)
+    devDependencies:
+      nodemon:
+        specifier: ^3.1.7
+        version: 3.1.10
+
+  ../../packages/pawpal-tega-project:
+    dependencies:
+      '@pawpal-service/shared':
+        specifier: workspace:*
+        version: link:../pawpal-shared
+      ajv:
+        specifier: ^8.17.1
+        version: 8.17.1
+      bcrypt:
+        specifier: ^5.1.1
+        version: 5.1.1
       dotenv:
         specifier: ^16.4.5
         version: 16.5.0

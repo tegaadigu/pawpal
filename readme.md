@@ -90,6 +90,7 @@ pnpm run create:service
  
 #follow the prompt.
 # On success run the previous command for installing all micro-service dependencies
+# verify that your new project exists in rush.json of the project_type (services or web)/rush.json
 pnpm run update:services:env
 
 # Install dependencies to update rush

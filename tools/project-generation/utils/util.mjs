@@ -141,7 +141,6 @@ export const updatePackageJson = async (projectPath, params) => {
  */
 export const updateRush = async (servicePath, params) => {
   try {
-    console.log('rush params to update -->', params)
     logger.info(`Adding project configuration to rush config`)
     const rushConfigPath = path.join(servicePath, 'rush.json')
     const jsonContent = await readJsonConfigFIleContent(rushConfigPath)
@@ -149,8 +148,6 @@ export const updateRush = async (servicePath, params) => {
       const value = params[key]
       jsonContent[key] = value;
     })
-
-    console.log('\n\n\n\nwriting... config to update -->', jsonContent)
 
     await writeFile(rushConfigPath, JSON.stringify(jsonContent, null, 2));
     logger.info(`Updated rush.json`)

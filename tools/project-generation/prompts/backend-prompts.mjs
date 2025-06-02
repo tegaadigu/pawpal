@@ -126,7 +126,7 @@ export const validateDBPortNumber = (port_number) => {
 export const validateApplicationPortNumber = (port_number) => {
   const portDictionary = getPORTS('PORT')
 
-  if(!!isValidPortFormat(port_number)) {
+  if(!isValidPortFormat(port_number)) {
     return `Invalid: port format, follow the existing format: [${Object.keys(portDictionary).toString()}]`
   }
 
