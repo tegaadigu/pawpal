@@ -79,6 +79,19 @@ pnpm run migrate:services
 ```
 
 
+### Create New Microservice
+
+to create a new backend service run the below command from the root folder
+
+```bash
+#from project root folder
+
+pnpm run create:service
+ 
+#follow the prompt.
+```
+
+
 ## 🖥️ Web 
 
 
