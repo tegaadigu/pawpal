@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nodemon --env-file=.env src/index.js",
     "docker:stop": "docker compose -f ./docker-compose.yml stop",
-    "docker:start": "docker compose -f ./docker-compose.yml up -d --build",
+    "docker:start": "docker compose -f ./docker-compose.yml up -d",
     "start:api:docker": "pnpm install && nodemon --env-file=.env src/index.js",
     "migrate": "npx knex migrate:latest",
     "migration:create": "read -p 'Enter migration name: ' name && npx knex migrate:make \"$name\""

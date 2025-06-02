@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 COPY package.json pnpm-workspace.yaml ./
 
-COPY packages/pawpal-otp/package.json ./packages/pawpal-otp/
+COPY packages/pawpal-template/package.json ./packages/pawpal-template/
 
 # Copy shared utils
 
@@ -19,6 +19,6 @@ COPY packages/pawpal-shared/ ./packages/pawpal-shared/
 RUN pnpm install 
 
 # # COPY Rest of sub-apps
-COPY packages/pawpal-otp/  ./packages/pawpal-otp/
+COPY packages/pawpal-template/  ./packages/pawpal-template/
 
 

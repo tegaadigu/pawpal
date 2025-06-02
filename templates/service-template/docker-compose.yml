@@ -4,17 +4,17 @@ services:
   app:
     build:
       context: ../../
-      dockerfile: packages/pawpal-otp/Dockerfile
+      dockerfile: packages/pawpal-template/Dockerfile
     networks:
       - pawpal-net
     volumes:
-      - ../../packages/pawpal-otp/src/./:/usr/src/app/packages/pawpal-otp/src
+      - ../../packages/pawpal-template/src/./:/usr/src/app/packages/pawpal-template/src
       - ../../packages/pawpal-shared/./:/usr/src/app/packages/pawpal-shared
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
     depends_on:
       - db
-    env_file: ../../packages/pawpal-otp/.env
+    env_file: ../../packages/pawpal-template/.env
     environment:
       - NODE_ENV=development
       - DB_HOST=db
@@ -22,7 +22,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
-    command: pnpm --filter ./packages/pawpal-otp start:api:docker
+    command: pnpm --filter ./packages/pawpal-template start:api:docker
 
   db:
     image: postgres:latest

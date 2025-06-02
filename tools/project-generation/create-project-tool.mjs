@@ -14,7 +14,7 @@ import { PATHS, PROJECT_TYPE } from './constants.mjs';
  * @property {string} project_type
  * @property {boolean} use_database
  * @property {string} db_name
- * @property {string} dp_port_number
+ * @property {string} db_port_number
  * @property {string} service_type
  * @property {string} app_port_number
  */

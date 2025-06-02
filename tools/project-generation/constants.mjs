@@ -16,3 +16,15 @@ export const BACKEND_SERVICE_TYPES = Object.freeze({
   RESTFUL: 'restful',
   EVENT_DRIVEN: 'event-driven'
 })
+
+
+/**
+ * @typedef {Object} Env
+ * @property {string} PORT
+ * @property {string} HOST
+ * @property {stirng} DB_PORT
+ * @property {string} DB_USER
+ * @property {string} DB_PASSWORD
+ * @property {string} DB_NAME
+ * @property {string} LOG_LEVEL
+ */

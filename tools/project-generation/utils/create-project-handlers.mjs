@@ -6,7 +6,8 @@ import {
   copyProjectTemplate,
   updatePackageJson, 
   updateRush,
-  readJsonConfigFIleContent
+  readJsonConfigFIleContent,
+  configureBackendProject
 } from "./util.mjs";
 import { logger } from '../lib/logger.mjs';
 import path from 'path';
@@ -54,7 +55,7 @@ export const createBackendProject = async(project_options) => {
       ]
     })
     // Configure Project docker file. docker-compose - and .env based on project options.
-    // await configureProject(project_options)
+    await configureBackendProject(targetPath, project_options)
     logger.info(`Successfully created Backend Project..`);
   } catch(e) {
     logger.error(`Failed to create project! error: ${e.message}, stack: ${e.stack}`)
